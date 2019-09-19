@@ -1,7 +1,9 @@
 package com.fedorrroff.tmdbportable.repositories;
 
-import com.fedorrroff.tmdbportable.models.Movie;
+import com.fedorrroff.tmdbportable.models.data.Movie;
+import com.fedorrroff.tmdbportable.models.data.MovieItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FakeMovieRepository implements MovieRepository {
@@ -15,7 +17,13 @@ public class FakeMovieRepository implements MovieRepository {
     }
 
     @Override
-    public List<Movie> getMovies() {
-        return null;
+    public List<MovieItem> getMovies() {
+        List<MovieItem> items = new ArrayList<>();
+
+        items.add(new MovieItem("desc1", "title1", null));
+        items.add(new MovieItem("desc2", "title2", null));
+        items.add(new MovieItem("desc2", "title2", null));
+
+        return items;
     }
 }

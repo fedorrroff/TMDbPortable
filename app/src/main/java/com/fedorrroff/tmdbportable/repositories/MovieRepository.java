@@ -1,10 +1,11 @@
 package com.fedorrroff.tmdbportable.repositories;
 
-import com.fedorrroff.tmdbportable.models.Movie;
+import com.fedorrroff.tmdbportable.models.data.Movie;
+import com.fedorrroff.tmdbportable.models.data.MovieItem;
 
 import java.util.List;
 
 public interface MovieRepository {
 
-    List<Movie> getMovies();
+    List<MovieItem> getMovies();
 }

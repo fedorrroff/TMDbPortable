@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieViewHolder> {
 
-    private List<MovieItem> items;
+    private List<MovieItem> items = new ArrayList<>();
 
     @NonNull
     @Override
@@ -38,17 +39,36 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieV
         return items.size();
     }
 
+    public void setItems(List<MovieItem> tweets) {
+        items.addAll(tweets);
+        notifyDataSetChanged();
+    }
+
+    public void clearItems() {
+        items.clear();
+        notifyDataSetChanged();
+    }
+
     class SingleMovieViewHolder extends RecyclerView.ViewHolder{
+
+        private ImageView iv_poster;
+        private TextView tv_description;
+        private TextView tv_title;
 
         public SingleMovieViewHolder(@NonNull View itemView) {
             super(itemView);
+            iv_poster = itemView.findViewById(R.id.iv_poster);
+            tv_description = itemView.findViewById(R.id.tv_description);
+            tv_title = itemView.findViewById(R.id.tv_title);
         }
 
-        ImageView iv_poster = itemView.findViewById(R.id.iv_poster);
-        TextView tv_description = itemView.findViewById(R.id.tv_description);
-        TextView tv_title = itemView.findViewById(R.id.tv_title);
-
         void bind (MovieItem item) {
+            if (item.getAvatar() == null) {
+                iv_poster.setImageResource(R.drawable.movie_poster);
+            } else {
+                iv_poster.setVisibility(View.INVISIBLE);
+            }
+
             tv_description.setText(item.getDescription());
             tv_title.setText(item.getTitle());
         }
