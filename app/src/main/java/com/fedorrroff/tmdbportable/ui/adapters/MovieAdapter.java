@@ -10,11 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.BaseRequestOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.fedorrroff.tmdbportable.tmdbApi.Requester.BASE_URL;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieViewHolder> {
 
@@ -39,8 +45,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieV
         return items.size();
     }
 
-    public void setItems(List<MovieItem> tweets) {
-        items.addAll(tweets);
+    public void setItems(List<MovieItem> movies) {
+        items.addAll(movies);
         notifyDataSetChanged();
     }
 
@@ -54,6 +60,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieV
         private ImageView iv_poster;
         private TextView tv_description;
         private TextView tv_title;
+        private RequestOptions requestOptions = new RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.NONE);
+
 
         public SingleMovieViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,13 +72,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieV
         }
 
         void bind (MovieItem item) {
-            if (item.getAvatar() == null) {
+            if (item.getPosterPath() == null) {
                 iv_poster.setImageResource(R.drawable.movie_poster);
             } else {
-                iv_poster.setVisibility(View.INVISIBLE);
+                Glide.with(itemView).load("https://image.tmdb.org/t/p/w500/" + item.getPosterPath())
+                        .apply(requestOptions).into(iv_poster);
             }
 
-            tv_description.setText(item.getDescription());
+            tv_description.setText(item.getOverview());
             tv_title.setText(item.getTitle());
         }
     }
