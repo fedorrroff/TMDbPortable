@@ -1,6 +1,5 @@
 package com.fedorrroff.tmdbportable.repositories;
 
-import com.fedorrroff.tmdbportable.models.data.Movie;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.models.data.PopularMoviesPage;
 import com.fedorrroff.tmdbportable.tmdbApi.APIService;
@@ -30,7 +29,7 @@ public class FakeMovieRepository implements MovieRepository {
         return extractMovieFromPage(moviePage);
     }
 
-    private List<MovieItem> extractMovieFromPage (Call<PopularMoviesPage> moviePage) throws IOException {
+    private static List<MovieItem> extractMovieFromPage (Call<PopularMoviesPage> moviePage) throws IOException {
         PopularMoviesPage page = moviePage.execute().body();
         return page.getMovieItems();
     }

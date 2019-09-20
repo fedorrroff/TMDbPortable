@@ -30,7 +30,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieV
     @Override
     public SingleMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.layout_movie_single, parent, false);
+        View itemView = inflater.inflate(R.layout.movie_single, parent, false);
         Log.d("M_ChatAdapter", "onCreateViewHolder: ");
         return new SingleMovieViewHolder(itemView);
     }

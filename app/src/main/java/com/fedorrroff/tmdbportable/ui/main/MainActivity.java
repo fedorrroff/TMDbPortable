@@ -1,6 +1,7 @@
 package com.fedorrroff.tmdbportable.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.repositories.FakeMovieRepository;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
 import com.fedorrroff.tmdbportable.ui.adapters.MovieAdapter;
+import com.fedorrroff.tmdbportable.ui.custom.decor.SpacesItemDecoration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
 
-        Thread loadMovies = new Thread(getMoviesFromApi);
-        loadMovies.start();
+        Thread loadMoviesThread = new Thread(getMoviesFromApi);
+        loadMoviesThread.start();
     }
 
     private void initViews() {
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_tiny);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
     }
 
     private void displayMovies(List<MovieItem> movies) {
