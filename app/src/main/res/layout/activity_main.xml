@@ -8,12 +8,9 @@
     android:background="@color/color_blue_300"
     tools:context=".ui.main.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rw_movies"
+    <FrameLayout
+        android:id="@+id/fl_toReplace"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/movie_single">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

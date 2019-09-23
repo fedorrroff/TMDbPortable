@@ -1,12 +1,10 @@
 package com.fedorrroff.tmdbportable.ui.main;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -23,15 +21,21 @@ import java.util.List;
 
 public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieViewHolder> {
 
-    private List<MovieItem> items = new ArrayList<>();
+    private final List<MovieItem> items;
     private OnItemClickListener listener;
+
+    public MovieAdapter (final List<MovieItem> startItems) {
+        items = new ArrayList<>();
+        if (startItems != null) {
+            items.addAll(startItems);
+        }
+    }
 
     @NonNull
     @Override
     public SingleMovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View itemView = inflater.inflate(R.layout.movie_single, parent, false);
-        Log.d("M_ChatAdapter", "onCreateViewHolder: ");
         return new SingleMovieViewHolder(itemView);
     }
 
@@ -45,14 +49,28 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
         return items.size();
     }
 
-    public void setItems(List<MovieItem> movies) {
+    public void addItem(final MovieItem movie) {
+        items.add(movie);
+        notifyDataSetChanged();
+    }
+
+    public void addAllItems(final List<MovieItem> movies) {
         items.addAll(movies);
         notifyDataSetChanged();
     }
 
-    public void clearItems() {
+    public void removeItem(final MovieItem movie) {
+        items.remove(movie);
+        notifyDataSetChanged();
+    }
+
+    public void removeAllItems() {
         items.clear();
         notifyDataSetChanged();
+    }
+
+    public List<MovieItem> getItems() {
+        return items;
     }
 
     class SingleMovieViewHolder extends RecyclerView.ViewHolder{
@@ -70,7 +88,6 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
             tv_description = itemView.findViewById(R.id.tv_description);
             tv_title = itemView.findViewById(R.id.tv_title);
             card_view = itemView.findViewById(R.id.card_view);
-
         }
 
         void bind (MovieItem item, OnItemClickListener listener) {
@@ -90,8 +107,6 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
                 }
             });
         }
-
-
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
