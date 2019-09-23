@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation_normal">8dp</dimen>
+    <dimen name="headline_text_size">24sp</dimen>
+</resources>
