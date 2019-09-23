@@ -1,7 +1,7 @@
 package com.fedorrroff.tmdbportable.ui.main;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,13 +11,10 @@ import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.repositories.FakeMovieRepository;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
-import com.fedorrroff.tmdbportable.ui.adapters.MovieAdapter;
 import com.fedorrroff.tmdbportable.ui.custom.decor.SpacesItemDecoration;
+import com.fedorrroff.tmdbportable.ui.movie.MovieFragment;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
 
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_tiny);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+
+        movieAdapter.setOnItemClickListener(() -> {
+            MovieFragment eventFragment = new MovieFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.cl_main, eventFragment).commit();
+        });
     }
 
     private void displayMovies(List<MovieItem> movies) {
