@@ -25,20 +25,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.provider.Contacts.SettingsColumns.KEY;
+
 public class MainPageFragment extends Fragment {
 
+    public static final String MOVIE_ID = "MOVIE_ID";
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter = new MovieAdapter(null);
     private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
 
-    private Runnable getMoviesFromApi = () -> {
-        try {
-            List<MovieItem> movies = fakeRepo.getMovies();
-            displayMovies(movies);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    };
+    public static MainPageFragment newInstance(int id) {
+        MainPageFragment mainPageFragment = new MainPageFragment();
+
+        Bundle arguments = new Bundle();
+        arguments.putInt(MOVIE_ID, id);
+        mainPageFragment.setArguments(arguments);
+
+        return mainPageFragment;
+    }
 
     @Nullable
     @Override
@@ -63,11 +67,11 @@ public class MainPageFragment extends Fragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_tiny);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
-        movieAdapter.setOnItemClickListener(() ->
+        movieAdapter.setOnItemClickListener((id) ->
             getFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
-                    .replace(R.id.fl_toReplace, new MovieFragment())
+                    .replace(R.id.fl_toReplace, MainPageFragment.newInstance(id))
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit()
@@ -81,6 +85,15 @@ public class MainPageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Runnable getMoviesFromApi = () -> {
+            try {
+                List<MovieItem> movies = fakeRepo.getMovies();
+                displayMovies(movies);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        };
 
         Thread loadMoviesThread = new Thread(getMoviesFromApi);
         loadMoviesThread.start();

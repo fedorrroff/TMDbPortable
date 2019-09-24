@@ -55,24 +55,20 @@ public class MovieItem {
     public MovieItem() {
     }
 
-    /**
-     *
-     * @param genreIds
-     * @param id
-     * @param title
-     * @param releaseDate
-     * @param overview
-     * @param posterPath
-     * @param originalTitle
-     * @param voteAverage
-     * @param originalLanguage
-     * @param adult
-     * @param backdropPath
-     * @param voteCount
-     * @param video
-     * @param popularity
-     */
-    public MovieItem(Double popularity, Integer voteCount, Boolean video, String posterPath, Integer id, Boolean adult, String backdropPath, String originalLanguage, String originalTitle, List<Integer> genreIds, String title, Double voteAverage, String overview, String releaseDate) {
+    public MovieItem(Double popularity,
+                     Integer voteCount,
+                     Boolean video,
+                     String posterPath,
+                     Integer id,
+                     Boolean adult,
+                     String backdropPath,
+                     String originalLanguage,
+                     String originalTitle,
+                     List<Integer> genreIds,
+                     String title,
+                     Double voteAverage,
+                     String overview,
+                     String releaseDate) {
         super();
         this.popularity = popularity;
         this.voteCount = voteCount;

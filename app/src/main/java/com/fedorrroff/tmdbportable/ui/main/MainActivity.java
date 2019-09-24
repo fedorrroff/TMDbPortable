@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(FRAGMENT_CONTAINER, new MainPageFragment())
-                .addToBackStack(null)
                 .commit();
     }
 }

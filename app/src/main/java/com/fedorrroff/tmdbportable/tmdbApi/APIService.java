@@ -1,9 +1,11 @@
 package com.fedorrroff.tmdbportable.tmdbApi;
 
+import com.fedorrroff.tmdbportable.models.data.MovieDetail;
 import com.fedorrroff.tmdbportable.models.data.PopularMoviesPage;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface APIService {
 
@@ -11,4 +13,9 @@ public interface APIService {
 
     @GET("movie/popular?api_key=" + API_KEY)
     Call<PopularMoviesPage> getPopularMoviePage();
+
+    @GET("movie/{movie_id}/videos?api_key=" + API_KEY)
+    Call<MovieDetail> getMovieDetail(
+            @Path("movie_id") int id
+    );
 }
