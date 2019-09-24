@@ -29,12 +29,14 @@ import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class MainPageFragment extends Fragment {
 
-    public static final String MOVIE_ID = "MOVIE_ID";
+    public static final String MOVIE = "MOVIE";
+
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter = new MovieAdapter(null);
     private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
 
     public static MainPageFragment newInstance() {
+
         MainPageFragment mainPageFragment = new MainPageFragment();
 
         return mainPageFragment;

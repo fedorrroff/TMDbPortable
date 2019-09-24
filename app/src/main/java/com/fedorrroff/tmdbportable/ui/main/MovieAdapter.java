@@ -99,7 +99,8 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
 
             itemView.setOnClickListener((v) -> {
                 if(listener != null) {
-                    listener.onItemClick(item.getId());
+                    listener.onItemClick(item
+                    );
                 }
             });
         }
@@ -110,6 +111,6 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(Integer  id);
+        public void onItemClick(MovieItem movie);
     }
 }

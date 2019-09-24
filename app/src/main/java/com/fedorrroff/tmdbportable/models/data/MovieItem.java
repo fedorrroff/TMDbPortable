@@ -1,10 +1,11 @@
 
 package com.fedorrroff.tmdbportable.models.data;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieItem {
+public class MovieItem implements Serializable {
 
     @SerializedName("popularity")
     private Double popularity;
