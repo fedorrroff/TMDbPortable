@@ -48,10 +48,6 @@ public class MovieItem {
     @SerializedName("release_date")
     private String releaseDate;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
     public MovieItem() {
     }
 

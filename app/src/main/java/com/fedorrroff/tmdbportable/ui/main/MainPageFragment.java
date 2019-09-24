@@ -34,12 +34,8 @@ public class MainPageFragment extends Fragment {
     private MovieAdapter movieAdapter = new MovieAdapter(null);
     private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
 
-    public static MainPageFragment newInstance(int id) {
+    public static MainPageFragment newInstance() {
         MainPageFragment mainPageFragment = new MainPageFragment();
-
-        Bundle arguments = new Bundle();
-        arguments.putInt(MOVIE_ID, id);
-        mainPageFragment.setArguments(arguments);
 
         return mainPageFragment;
     }
@@ -71,7 +67,7 @@ public class MainPageFragment extends Fragment {
             getFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
-                    .replace(R.id.fl_toReplace, MainPageFragment.newInstance(id))
+                    .replace(R.id.fl_toReplace, MovieFragment.newInstance(id))
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit()

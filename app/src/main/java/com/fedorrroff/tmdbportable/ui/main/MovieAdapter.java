@@ -110,6 +110,6 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
     }
 
     public interface OnItemClickListener {
-        public void onItemClick(int id);
+        public void onItemClick(Integer  id);
     }
 }

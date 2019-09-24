@@ -16,6 +16,6 @@ public interface APIService {
 
     @GET("movie/{movie_id}/videos?api_key=" + API_KEY)
     Call<MovieDetail> getMovieDetail(
-            @Path("movie_id") int id
+            @Path("movie_id") Integer id
     );
 }

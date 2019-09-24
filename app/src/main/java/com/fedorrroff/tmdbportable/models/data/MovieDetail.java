@@ -8,11 +8,9 @@ import com.google.gson.annotations.SerializedName;
 public class MovieDetail {
 
     @SerializedName("id")
-    @Expose
     private Integer id;
 
     @SerializedName("results")
-    @Expose
     private List<MovieTrailer> results = null;
 
     public MovieDetail() {

@@ -23,10 +23,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.fedorrroff.tmdbportable.ui.main.MainPageFragment.MOVIE_ID;
+
 public class MovieFragment extends Fragment {
 
     private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
-    private List<MovieTrailer> trailers = new ArrayList<>();
+    private final List<MovieTrailer> trailers;
+
+    public static MovieFragment newInstance(Integer id) {
+        MovieFragment movieFragment= new MovieFragment();
+
+        Bundle arguments = new Bundle();
+        arguments.putInt(MOVIE_ID, id);
+        movieFragment.setArguments(arguments);
+
+        return movieFragment;
+    }
+
+    public MovieFragment () {
+        this.trailers = new ArrayList<>();
+    }
+
 
     @Nullable
     @Override
@@ -52,15 +69,19 @@ public class MovieFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Runnable getMoviesFromApi = () -> {
+        Bundle idBundle = getArguments();
+        Integer id = idBundle.getInt(MOVIE_ID);
+
+        Runnable getMovieDetailFromApi = () -> {
             try {
-                trailers = fakeRepo.getMovieTrailers(getArguments().getInt(MainPageFragment.MOVIE_ID));
+                List<MovieTrailer> tr = fakeRepo.getMovieTrailers(id);
+                trailers.addAll(fakeRepo.getMovieTrailers(id));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         };
 
-        Thread loadMoviesThread = new Thread(getMoviesFromApi);
-        loadMoviesThread.start();
+        Thread loadTrailersThread = new Thread(getMovieDetailFromApi);
+        loadTrailersThread.start();
     }
 }

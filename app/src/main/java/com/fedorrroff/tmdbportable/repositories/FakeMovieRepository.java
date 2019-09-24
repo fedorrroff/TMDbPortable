@@ -32,7 +32,7 @@ public class FakeMovieRepository implements MovieRepository {
     }
 
     @Override
-    public List<MovieTrailer> getMovieTrailers(int id) throws IOException {
+    public List<MovieTrailer> getMovieTrailers(Integer id) throws IOException {
         APIService movieResource = Requester.getInstance();
         //Create service
         Call<MovieDetail> movieDetail = movieResource.getMovieDetail(id);
