@@ -18,13 +18,13 @@ import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
 
-import java.io.IOException;
-
 import static com.fedorrroff.tmdbportable.ui.main.MainPageFragment.MOVIE;
 
 public class MovieFragment extends Fragment {
 
     final MovieFragmentPresenter movieFragmentPresenter = new MovieFragmentPresenter(this);
+
+    private TextView tv_descr;
 
     public static MovieFragment newInstance(MovieItem movie) {
         MovieFragment movieFragment= new MovieFragment();
@@ -52,9 +52,10 @@ public class MovieFragment extends Fragment {
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);
 
-        movieFragmentPresenter.downloadMovieInfo(movie.getId(), view);
+        movieFragmentPresenter.downloadMovieInfo(movie.getId());
 
-        displayMovieInfo(movie, view);
+        tv_descr = view.findViewById(R.id.tv_description_detail);
+        displayMovieInfo(movie);
     }
 
     @Override
@@ -69,8 +70,7 @@ public class MovieFragment extends Fragment {
                 getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
     }
 
-    public void displayMovieInfo(MovieItem movie, View view) {
-        TextView tv_descr = view.findViewById(R.id.tv_description_detail);
+    public void displayMovieInfo(MovieItem movie) {
         tv_descr.setText(movie.getOverview());
     }
 

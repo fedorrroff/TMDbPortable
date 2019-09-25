@@ -16,11 +16,11 @@ public class MovieFragmentPresenter {
         this.movieFragment = movieFragment;
     }
 
-    public void downloadMovieInfo(Integer id, View view) {
+    public void downloadMovieInfo(Integer id) {
         Runnable getMovieDetailFromApi = () ->
         {
             try {
-                downloadMovieTrailer(id, view);
+                downloadMovieTrailer(id);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -30,7 +30,7 @@ public class MovieFragmentPresenter {
         loadTrailersThread.start();
     }
 
-    public void downloadMovieTrailer(Integer id, View view) throws IOException{
+    public void downloadMovieTrailer(Integer id) throws IOException{
         movieFragment.displayMovieTrailer(fakeRepo.getMovieTrailers(id).get(0));
     }
 }

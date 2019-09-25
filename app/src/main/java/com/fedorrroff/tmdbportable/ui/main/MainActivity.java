@@ -17,16 +17,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("M_mainActivity", "onCreate");
         setContentView(R.layout.activity_main);
-        initViews(savedInstanceState);
+        if (savedInstanceState == null) {
+            initViews();
+        }
     }
 
-    private void initViews(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(FRAGMENT_CONTAINER, new MainPageFragment())
-                    .commit();
-        }
+    private void initViews() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(FRAGMENT_CONTAINER, MainPageFragment.newInstance())
+                .commit();
     }
 
     @Override
