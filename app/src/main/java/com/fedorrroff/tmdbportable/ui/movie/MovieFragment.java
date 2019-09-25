@@ -17,8 +17,6 @@ import androidx.fragment.app.Fragment;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
-import com.fedorrroff.tmdbportable.repositories.FakeMovieRepository;
-import com.fedorrroff.tmdbportable.repositories.MovieRepository;
 
 import java.io.IOException;
 
@@ -26,13 +24,7 @@ import static com.fedorrroff.tmdbportable.ui.main.MainPageFragment.MOVIE;
 
 public class MovieFragment extends Fragment {
 
-    private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
-
-    private ImageView iv;
-    private TextView tv_title;
-    private TextView tv_rating;
-    private TextView tv_descr;
-    private MovieItem movieSolo;
+    final MovieFragmentPresenter movieFragmentPresenter = new MovieFragmentPresenter(this);
 
     public static MovieFragment newInstance(MovieItem movie) {
         MovieFragment movieFragment= new MovieFragment();
@@ -60,16 +52,9 @@ public class MovieFragment extends Fragment {
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);
 
-        Runnable getMovieDetailFromApi = () -> {
-            try {
-                downloadMovieInfo(movie.getId(), view);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        };
+        movieFragmentPresenter.downloadMovieInfo(movie.getId(), view);
 
-        Thread loadTrailersThread = new Thread(getMovieDetailFromApi);
-        loadTrailersThread.start();
+        displayMovieInfo(movie, view);
     }
 
     @Override
@@ -78,20 +63,14 @@ public class MovieFragment extends Fragment {
         Log.d("M_movieFragment", "onCreate");
     }
 
-    public void downloadMovieInfo(int id, View view) throws IOException{
-        displayMovieTrailer(
-                fakeRepo.getMovieTrailers(id).get(0), view
-        );
-    }
-
-    public void displayMovieTrailer(MovieTrailer movieTrailer, View view) {
-        ImageView youtube_btn = view.findViewById(R.id.ib_youtube);
+    public void displayMovieTrailer(MovieTrailer movieTrailer) {
+        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
         youtube_btn.setOnClickListener((v) ->
                 getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
     }
 
     public void displayMovieInfo(MovieItem movie, View view) {
-        tv_descr = view.findViewById(R.id.tv_description_detail);
+        TextView tv_descr = view.findViewById(R.id.tv_description_detail);
         tv_descr.setText(movie.getOverview());
     }
 

@@ -36,7 +36,6 @@ public class MainPageFragment extends Fragment {
     private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
 
     public static MainPageFragment newInstance() {
-
         MainPageFragment mainPageFragment = new MainPageFragment();
 
         return mainPageFragment;
@@ -72,6 +71,7 @@ public class MainPageFragment extends Fragment {
                     .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
                     .replace(R.id.fl_toReplace, MovieFragment.newInstance(id))
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .addToBackStack(null)
                     .commit()
         );
 
@@ -111,12 +111,5 @@ public class MainPageFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d("M_mainPageFragment", "onDestroy");
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Fragment curr = getFragmentManager().findFragmentById(R.id.fragment_movie);
-        outState.putString("CURR", curr.getTag());
     }
 }
