@@ -66,23 +66,15 @@ public class MainPageFragment extends Fragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_tiny);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
-        if (savedInstanceState == null) {
-            movieAdapter.setOnItemClickListener((id) ->
-                getFragmentManager()
-                        .beginTransaction()
-                        .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
-                        .replace(R.id.fl_toReplace, MovieFragment.newInstance(id))
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
-            );
-        }
-        else {
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_toReplace, getFragmentManager().findFragmentByTag(savedInstanceState.getString("CURR")))
-                .commit();
+        movieAdapter.setOnItemClickListener((id) ->
+            getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
+                    .replace(R.id.fl_toReplace, MovieFragment.newInstance(id))
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .commit()
+        );
 
-        }
     }
 
     private void displayMovies(List<MovieItem> movies) {
