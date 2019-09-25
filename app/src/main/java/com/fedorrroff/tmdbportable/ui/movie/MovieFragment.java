@@ -13,6 +13,8 @@ import com.fedorrroff.tmdbportable.R;
 
 public class MovieFragment extends Fragment {
 
+    final MovieFragmentPresenter movieFragmentPresenter = new MovieFragmentPresenter(this);
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -20,5 +22,9 @@ public class MovieFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.movie_detail_fragment, container, false);
+    }
+
+    void displayMovieInfo(Object object, Object object1) {
+
     }
 }
