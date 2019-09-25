@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,12 @@ import static com.fedorrroff.tmdbportable.ui.main.MainPageFragment.MOVIE;
 public class MovieFragment extends Fragment {
 
     private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
+
+    private ImageView iv;
+    private TextView tv_title;
+    private TextView tv_rating;
+    private TextView tv_descr;
+    private MovieItem movieSolo;
 
     public static MovieFragment newInstance(MovieItem movie) {
         MovieFragment movieFragment= new MovieFragment();
@@ -48,6 +55,8 @@ public class MovieFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        MovieItem movie = getMovie();
+        displayMovieInfo(movie, view);
     }
 
     @Override
@@ -56,6 +65,8 @@ public class MovieFragment extends Fragment {
 
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);
+
+        setMovieBundle(movie);
 
         Runnable getMovieDetailFromApi = () -> {
             try {
@@ -70,19 +81,27 @@ public class MovieFragment extends Fragment {
     }
 
     public void downloadMovieInfo(int id) throws IOException{
-        displayMovieInfo(
+        displayMovieTrailer(
                 fakeRepo.getMovieTrailers(id).get(0)
         );
     }
 
-    public void displayMovieInfo(MovieTrailer movieTrailer) {
+    public void displayMovieTrailer(MovieTrailer movieTrailer) {
         ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
         youtube_btn.setOnClickListener((v) ->
                 getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
     }
 
-    public void displayMovieTitle(MovieItem movie) {
-        //тут раскидываю по вьюхам
-        //можно ли делать вызов этого метода в onViewCreate?
+    public void displayMovieInfo(MovieItem movie, View view) {
+        tv_descr = view.findViewById(R.id.tv_description_detail);
+        tv_descr.setText(movie.getOverview());
+    }
+
+    public void setMovieBundle(MovieItem movie) {
+        movieSolo = movie;
+    }
+
+    public MovieItem getMovie() {
+        return movieSolo;
     }
 }
