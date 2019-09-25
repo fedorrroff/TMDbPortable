@@ -3,6 +3,7 @@ package com.fedorrroff.tmdbportable.ui.movie;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,29 +49,20 @@ public class MovieFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
+        Log.d("M_movieFragment", "onCreateView");
         return inflater.inflate(R.layout.movie_detail_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        MovieItem movie = getMovie();
-        displayMovieInfo(movie, view);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);
 
-        setMovieBundle(movie);
-
         Runnable getMovieDetailFromApi = () -> {
             try {
-                downloadMovieInfo(movie.getId());
+                downloadMovieInfo(movie.getId(), view);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -80,14 +72,20 @@ public class MovieFragment extends Fragment {
         loadTrailersThread.start();
     }
 
-    public void downloadMovieInfo(int id) throws IOException{
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("M_movieFragment", "onCreate");
+    }
+
+    public void downloadMovieInfo(int id, View view) throws IOException{
         displayMovieTrailer(
-                fakeRepo.getMovieTrailers(id).get(0)
+                fakeRepo.getMovieTrailers(id).get(0), view
         );
     }
 
-    public void displayMovieTrailer(MovieTrailer movieTrailer) {
-        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
+    public void displayMovieTrailer(MovieTrailer movieTrailer, View view) {
+        ImageView youtube_btn = view.findViewById(R.id.ib_youtube);
         youtube_btn.setOnClickListener((v) ->
                 getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
     }
@@ -97,11 +95,8 @@ public class MovieFragment extends Fragment {
         tv_descr.setText(movie.getOverview());
     }
 
-    public void setMovieBundle(MovieItem movie) {
-        movieSolo = movie;
-    }
-
-    public MovieItem getMovie() {
-        return movieSolo;
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 }

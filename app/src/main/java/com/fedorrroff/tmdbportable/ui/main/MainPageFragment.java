@@ -47,13 +47,14 @@ public class MainPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
+        Log.d("M_mainPageFragment", "onCreateView: ");
         return inflater.inflate(R.layout.main_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("M_mainPageFragment", "onViewCreated");
 
         recyclerView = view.findViewById(R.id.rw_movies);
 
@@ -65,25 +66,36 @@ public class MainPageFragment extends Fragment {
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_tiny);
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
-        movieAdapter.setOnItemClickListener((id) ->
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
-                    .replace(R.id.fl_toReplace, MovieFragment.newInstance(id))
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack(null)
-                    .commit()
-        );
+        if (savedInstanceState == null) {
+            movieAdapter.setOnItemClickListener((id) ->
+                getFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
+                        .replace(R.id.fl_toReplace, MovieFragment.newInstance(id))
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+            );
+        }
+        else {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_toReplace, getFragmentManager().findFragmentByTag(savedInstanceState.getString("CURR")))
+                .commit();
+
+        }
     }
 
     private void displayMovies(List<MovieItem> movies) {
-        recyclerView.post(() -> movieAdapter.addAllItems(movies));
+        if (recyclerView != null) {
+            recyclerView.post(() -> movieAdapter.addAllItems(movies));
+        }
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d("M_mainPageFragment", "onCreate");
         Runnable getMoviesFromApi = () -> {
             try {
                 List<MovieItem> movies = fakeRepo.getMovies();
@@ -95,5 +107,24 @@ public class MainPageFragment extends Fragment {
 
         Thread loadMoviesThread = new Thread(getMoviesFromApi);
         loadMoviesThread.start();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("M_mainPageFragment", "onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("M_mainPageFragment", "onDestroy");
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Fragment curr = getFragmentManager().findFragmentById(R.id.fragment_movie);
+        outState.putString("CURR", curr.getTag());
     }
 }
