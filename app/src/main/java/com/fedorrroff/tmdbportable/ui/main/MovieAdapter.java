@@ -69,10 +69,6 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
         notifyDataSetChanged();
     }
 
-    public List<MovieItem> getItems() {
-        return items;
-    }
-
     class SingleMovieViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView iv_poster;
@@ -92,7 +88,7 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
 
         void bind (MovieItem item, OnItemClickListener listener) {
             if (item.getPosterPath() == null) {
-                iv_poster.setImageResource(R.drawable.movie_poster);
+                iv_poster.setImageResource(R.drawable.ic_video_library_black_24dp);
             } else {
                 Glide.with(itemView).load("https://image.tmdb.org/t/p/w500/" + item.getPosterPath())
                         .apply(requestOptions).into(iv_poster);
@@ -103,7 +99,8 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
 
             itemView.setOnClickListener((v) -> {
                 if(listener != null) {
-                    listener.onItemClick();
+                    listener.onItemClick(item
+                    );
                 }
             });
         }
@@ -114,6 +111,6 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
     }
 
     public interface OnItemClickListener {
-        public void onItemClick();
+        public void onItemClick(MovieItem movie);
     }
 }

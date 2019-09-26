@@ -1,10 +1,11 @@
 
 package com.fedorrroff.tmdbportable.models.data;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieItem {
+public class MovieItem implements Serializable {
 
     @SerializedName("popularity")
     private Double popularity;
@@ -40,7 +41,7 @@ public class MovieItem {
     private String title;
 
     @SerializedName("vote_average")
-    private Double voteAverage;
+    private Float voteAverage;
 
     @SerializedName("overview")
     private String overview;
@@ -48,31 +49,23 @@ public class MovieItem {
     @SerializedName("release_date")
     private String releaseDate;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
     public MovieItem() {
     }
 
-    /**
-     *
-     * @param genreIds
-     * @param id
-     * @param title
-     * @param releaseDate
-     * @param overview
-     * @param posterPath
-     * @param originalTitle
-     * @param voteAverage
-     * @param originalLanguage
-     * @param adult
-     * @param backdropPath
-     * @param voteCount
-     * @param video
-     * @param popularity
-     */
-    public MovieItem(Double popularity, Integer voteCount, Boolean video, String posterPath, Integer id, Boolean adult, String backdropPath, String originalLanguage, String originalTitle, List<Integer> genreIds, String title, Double voteAverage, String overview, String releaseDate) {
+    public MovieItem(Double popularity,
+                     Integer voteCount,
+                     Boolean video,
+                     String posterPath,
+                     Integer id,
+                     Boolean adult,
+                     String backdropPath,
+                     String originalLanguage,
+                     String originalTitle,
+                     List<Integer> genreIds,
+                     String title,
+                     Float voteAverage,
+                     String overview,
+                     String releaseDate) {
         super();
         this.popularity = popularity;
         this.voteCount = voteCount;
@@ -178,11 +171,11 @@ public class MovieItem {
         this.title = title;
     }
 
-    public Double getVoteAverage() {
+    public Float getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(Float voteAverage) {
         this.voteAverage = voteAverage;
     }
 

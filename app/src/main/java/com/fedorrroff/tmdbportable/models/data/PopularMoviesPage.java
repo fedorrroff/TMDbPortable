@@ -15,20 +15,9 @@ public class PopularMoviesPage {
     @SerializedName("results")
     private List<MovieItem> movieItems = null;
 
-    /**
-     * No args constructor for use in serialization
-     *
-     */
     public PopularMoviesPage() {
     }
 
-    /**
-     *
-     * @param movies
-     * @param totalMovieItems
-     * @param page
-     * @param totalPages
-     */
     public PopularMoviesPage(Integer page, Integer totalMovieItems, Integer totalPages, List<MovieItem> movies) {
         super();
         this.page = page;
