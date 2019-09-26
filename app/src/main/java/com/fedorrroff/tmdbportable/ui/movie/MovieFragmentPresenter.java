@@ -2,6 +2,7 @@ package com.fedorrroff.tmdbportable.ui.movie;
 
 import android.view.View;
 
+import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
 import com.fedorrroff.tmdbportable.repositories.FakeMovieRepository;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
 
@@ -17,20 +18,25 @@ public class MovieFragmentPresenter {
     }
 
     public void downloadMovieInfo(Integer id) {
-        Runnable getMovieDetailFromApi = () ->
-        {
+        Thread loadTrailersThread = new Thread(() -> {
             try {
-                downloadMovieTrailer(id);
+                MovieTrailer trailer = fakeRepo.getMovieTrailer(id);
+                if (trailer != null) {
+                    downloadMovieTrailer((trailer1) -> movieFragment.displayMovieTrailer(trailer), trailer);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        };
-
-        Thread loadTrailersThread = new Thread(getMovieDetailFromApi);
+        });
         loadTrailersThread.start();
     }
 
-    public void downloadMovieTrailer(Integer id) throws IOException{
-        movieFragment.displayMovieTrailer(fakeRepo.getMovieTrailers(id).get(0));
+    public void downloadMovieTrailer(ShowMovieTrailer showMovieTrailer, MovieTrailer trailer) {
+        showMovieTrailer.showMovieTrailer(trailer);
+    }
+
+    @FunctionalInterface
+    public interface ShowMovieTrailer{
+        void showMovieTrailer(MovieTrailer trailer);
     }
 }

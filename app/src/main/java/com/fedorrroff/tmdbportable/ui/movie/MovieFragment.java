@@ -1,5 +1,6 @@
 package com.fedorrroff.tmdbportable.ui.movie;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ public class MovieFragment extends Fragment {
     final MovieFragmentPresenter movieFragmentPresenter = new MovieFragmentPresenter(this);
 
     private TextView tv_descr;
+    private TextView tv_title;
+    private TextView tv_rating;
 
     public static MovieFragment newInstance(MovieItem movie) {
         MovieFragment movieFragment= new MovieFragment();
@@ -55,13 +58,9 @@ public class MovieFragment extends Fragment {
         movieFragmentPresenter.downloadMovieInfo(movie.getId());
 
         tv_descr = view.findViewById(R.id.tv_description_detail);
+        tv_title = view.findViewById(R.id.tv_title_detail);
+        tv_rating = view.findViewById(R.id.tv_rating);
         displayMovieInfo(movie);
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d("M_movieFragment", "onCreate");
     }
 
     public void displayMovieTrailer(MovieTrailer movieTrailer) {
@@ -72,10 +71,7 @@ public class MovieFragment extends Fragment {
 
     public void displayMovieInfo(MovieItem movie) {
         tv_descr.setText(movie.getOverview());
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
+        tv_title.setText(movie.getTitle());
+        tv_rating.setText(movie.getVoteAverage().toString());
     }
 }

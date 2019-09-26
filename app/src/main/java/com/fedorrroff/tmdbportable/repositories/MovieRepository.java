@@ -10,5 +10,5 @@ public interface MovieRepository {
 
     List<MovieItem> getMovies() throws IOException;
 
-    List<MovieTrailer> getMovieTrailers(Integer id) throws IOException;
+    MovieTrailer getMovieTrailer(Integer id) throws IOException;
 }

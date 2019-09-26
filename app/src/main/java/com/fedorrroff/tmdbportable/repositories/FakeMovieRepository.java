@@ -32,11 +32,12 @@ public class FakeMovieRepository implements MovieRepository {
     }
 
     @Override
-    public List<MovieTrailer> getMovieTrailers(Integer id) throws IOException {
+    public MovieTrailer getMovieTrailer(Integer id) throws IOException {
         APIService movieResource = Requester.getInstance();
         //Create service
         Call<MovieDetail> movieDetail = movieResource.getMovieDetail(id);
-        return extractTrailersFromMovie(movieDetail);
+        List<MovieTrailer> trailers = extractTrailersFromMovie(movieDetail);
+        return trailers.size() > 0 ? trailers.get(0) : null;
     }
 
     private static List<MovieItem> extractMovieFromPage (Call<PopularMoviesPage> moviePage) throws IOException {

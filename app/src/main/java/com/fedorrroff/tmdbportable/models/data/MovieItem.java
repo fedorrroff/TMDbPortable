@@ -41,7 +41,7 @@ public class MovieItem implements Serializable {
     private String title;
 
     @SerializedName("vote_average")
-    private Double voteAverage;
+    private Float voteAverage;
 
     @SerializedName("overview")
     private String overview;
@@ -63,7 +63,7 @@ public class MovieItem implements Serializable {
                      String originalTitle,
                      List<Integer> genreIds,
                      String title,
-                     Double voteAverage,
+                     Float voteAverage,
                      String overview,
                      String releaseDate) {
         super();
@@ -171,11 +171,11 @@ public class MovieItem implements Serializable {
         this.title = title;
     }
 
-    public Double getVoteAverage() {
+    public Float getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(Float voteAverage) {
         this.voteAverage = voteAverage;
     }
 
