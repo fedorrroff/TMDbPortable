@@ -1,16 +1,14 @@
 package com.fedorrroff.tmdbportable.ui.movie;
 
-import android.view.View;
-
 import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
-import com.fedorrroff.tmdbportable.repositories.FakeMovieRepository;
+import com.fedorrroff.tmdbportable.repositories.MovieRepositoryImpl;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
 
 import java.io.IOException;
 
 public class MovieFragmentPresenter {
 
-    private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
+    private MovieRepository fakeRepo = MovieRepositoryImpl.getInstance();
     private final MovieFragment movieFragment;
 
     public MovieFragmentPresenter (MovieFragment movieFragment) {

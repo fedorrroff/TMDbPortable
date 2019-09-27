@@ -12,14 +12,14 @@ import java.util.List;
 
 import retrofit2.Call;
 
-public class FakeMovieRepository implements MovieRepository {
-    private static final FakeMovieRepository ourInstance = new FakeMovieRepository();
+public class MovieRepositoryImpl implements MovieRepository {
+    private static final MovieRepositoryImpl ourInstance = new MovieRepositoryImpl();
 
-    public static FakeMovieRepository getInstance() {
+    public static MovieRepositoryImpl getInstance() {
         return ourInstance;
     }
 
-    private FakeMovieRepository() {
+    private MovieRepositoryImpl() {
     }
 
     @Override

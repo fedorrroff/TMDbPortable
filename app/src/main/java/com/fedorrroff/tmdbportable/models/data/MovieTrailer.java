@@ -39,7 +39,8 @@ public class MovieTrailer {
                         String name,
                         String site,
                         Integer size,
-                        String type) {
+                        String type
+                        ) {
         super();
         this.id = id;
         this.iso6391 = iso6391;
