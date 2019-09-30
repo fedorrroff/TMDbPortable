@@ -1,14 +1,16 @@
 package com.fedorrroff.tmdbportable.ui.movie;
 
+import android.os.AsyncTask;
+
 import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
 import com.fedorrroff.tmdbportable.repositories.MovieRepositoryImpl;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 public class MovieFragmentPresenter {
 
-    private MovieRepository fakeRepo = MovieRepositoryImpl.getInstance();
     private final MovieFragment movieFragment;
 
     public MovieFragmentPresenter (MovieFragment movieFragment) {
@@ -16,25 +18,37 @@ public class MovieFragmentPresenter {
     }
 
     public void downloadMovieInfo(Integer id) {
-        Thread loadTrailersThread = new Thread(() -> {
+        new DownloadMovieInfoTask(movieFragment).execute(id);
+    }
+
+    static class DownloadMovieInfoTask extends AsyncTask<Integer, Void, MovieTrailer> {
+
+        private final WeakReference<MovieFragment> movieFragmentRef;
+        private final MovieRepository repositoryRef;
+
+        public DownloadMovieInfoTask(MovieFragment movieFragment) {
+            movieFragmentRef = new WeakReference<>(movieFragment);
+            repositoryRef = MovieRepositoryImpl.getInstance();
+        }
+
+        @Override
+        protected MovieTrailer doInBackground(Integer... integers) {
             try {
-                MovieTrailer trailer = fakeRepo.getMovieTrailer(id);
-                if (trailer != null) {
-                    downloadMovieTrailer((trailer1) -> movieFragment.displayMovieTrailer(trailer), trailer);
+                for (Integer integer: integers) {
+                    return repositoryRef.getMovieTrailer(integer);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
-        loadTrailersThread.start();
-    }
+            return null;
+        }
 
-    public void downloadMovieTrailer(ShowMovieTrailer showMovieTrailer, MovieTrailer trailer) {
-        showMovieTrailer.showMovieTrailer(trailer);
-    }
-
-    @FunctionalInterface
-    public interface ShowMovieTrailer{
-        void showMovieTrailer(MovieTrailer trailer);
+        @Override
+        protected void onPostExecute(MovieTrailer trailer) {
+            super.onPostExecute(trailer);
+            if (trailer != null && movieFragmentRef.get() != null) {
+                movieFragmentRef.get().displayMovieTrailer(trailer);
+            }
+        }
     }
 }
