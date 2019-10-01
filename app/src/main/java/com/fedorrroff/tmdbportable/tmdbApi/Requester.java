@@ -1,7 +1,5 @@
 package com.fedorrroff.tmdbportable.tmdbApi;
 
-import com.fedorrroff.tmdbportable.repositories.FakeMovieRepository;
-
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

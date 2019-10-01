@@ -23,7 +23,7 @@ import static com.fedorrroff.tmdbportable.ui.main.MainPageFragment.MOVIE;
 
 public class MovieFragment extends Fragment {
 
-    final MovieFragmentPresenter movieFragmentPresenter = new MovieFragmentPresenter(this);
+    private final MovieFragmentPresenter movieFragmentPresenter = new MovieFragmentPresenter(this);
 
     private TextView tv_descr;
     private TextView tv_title;

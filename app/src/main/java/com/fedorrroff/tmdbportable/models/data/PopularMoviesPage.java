@@ -8,10 +8,13 @@ public class PopularMoviesPage {
 
     @SerializedName("page")
     private Integer page;
+
     @SerializedName("total_MovieItems")
     private Integer totalMovieItems;
+
     @SerializedName("total_pages")
     private Integer totalPages;
+
     @SerializedName("results")
     private List<MovieItem> movieItems = null;
 

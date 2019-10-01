@@ -65,7 +65,8 @@ public class MovieItem implements Serializable {
                      String title,
                      Float voteAverage,
                      String overview,
-                     String releaseDate) {
+                     String releaseDate
+                    ) {
         super();
         this.popularity = popularity;
         this.voteCount = voteCount;
