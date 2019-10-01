@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.fedorrroff.tmdbportable.R;
+import com.fedorrroff.tmdbportable.ui.navigation.NavigatorImpl;
 
 public class MovieFragment extends Fragment {
 

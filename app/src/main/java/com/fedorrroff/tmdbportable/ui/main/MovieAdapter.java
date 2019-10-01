@@ -92,7 +92,7 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
 
         void bind (MovieItem item, OnItemClickListener listener) {
             if (item.getPosterPath() == null) {
-                iv_poster.setImageResource(R.drawable.movie_poster);
+                //iv_poster.setImageResource(R.drawable.movie_poster);
             } else {
                 Glide.with(itemView).load("https://image.tmdb.org/t/p/w500/" + item.getPosterPath())
                         .apply(requestOptions).into(iv_poster);

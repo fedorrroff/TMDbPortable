@@ -15,21 +15,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fedorrroff.tmdbportable.R;
+import com.fedorrroff.tmdbportable.di.ActivityModule;
+import com.fedorrroff.tmdbportable.di.DaggerFragmentComponent;
+import com.fedorrroff.tmdbportable.di.FragmentComponent;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.repositories.FakeMovieRepository;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
 import com.fedorrroff.tmdbportable.ui.custom.decor.SpacesItemDecoration;
 import com.fedorrroff.tmdbportable.ui.movie.MovieFragment;
+import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class MainPageFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter = new MovieAdapter(null);
     private MovieRepository fakeRepo = FakeMovieRepository.getInstance();
+
+    @Inject
+    Navigator navigator;
 
     private Runnable getMoviesFromApi = () -> {
         try {
@@ -39,6 +48,17 @@ public class MainPageFragment extends Fragment {
             e.printStackTrace();
         }
     };
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        FragmentComponent fragmentComponent = DaggerFragmentComponent.builder().activityModule(new ActivityModule(getActivity())).build();
+        fragmentComponent.inject(this);
+
+        Thread loadMoviesThread = new Thread(getMoviesFromApi);
+        loadMoviesThread.start();
+    }
 
     @Nullable
     @Override
@@ -64,25 +84,11 @@ public class MainPageFragment extends Fragment {
         recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
         movieAdapter.setOnItemClickListener(() ->
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
-                    .replace(R.id.fl_toReplace, new MovieFragment())
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack(null)
-                    .commit()
+            navigator.showMovieScreen(0)
         );
     }
 
     private void displayMovies(List<MovieItem> movies) {
         recyclerView.post(() -> movieAdapter.addAllItems(movies));
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Thread loadMoviesThread = new Thread(getMoviesFromApi);
-        loadMoviesThread.start();
     }
 }
