@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.ui.main;
+package com.fedorrroff.tmdbportable.ui.popular;
 
 import android.os.AsyncTask;
 import android.util.Log;

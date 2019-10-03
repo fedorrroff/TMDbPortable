@@ -22,7 +22,7 @@ import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
 
-import static com.fedorrroff.tmdbportable.ui.main.PopularMoviesFragment.MOVIE;
+import static com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment.MOVIE;
 
 public class MovieFragment extends Fragment {
 

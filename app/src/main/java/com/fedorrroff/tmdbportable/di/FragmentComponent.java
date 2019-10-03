@@ -4,7 +4,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.fedorrroff.tmdbportable.ui.main.MainActivity;
-import com.fedorrroff.tmdbportable.ui.main.PopularMoviesFragment;
+import com.fedorrroff.tmdbportable.ui.main.MainPageFragment;
+import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
 import dagger.Component;
@@ -21,4 +22,6 @@ public interface FragmentComponent {
     void inject(PopularMoviesFragment mainPageFragment);
 
     void inject(MainActivity mainActivity);
+
+    void inject(MainPageFragment mainPageFragment);
 }

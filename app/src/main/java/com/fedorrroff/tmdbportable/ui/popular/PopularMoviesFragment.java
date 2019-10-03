@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.ui.main;
+package com.fedorrroff.tmdbportable.ui.popular;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +17,7 @@ import com.fedorrroff.tmdbportable.di.ActivityModule;
 import com.fedorrroff.tmdbportable.di.FragmentComponent;
 import com.fedorrroff.tmdbportable.di.DaggerFragmentComponent;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
+import com.fedorrroff.tmdbportable.ui.main.MovieAdapter;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
 import java.util.List;
@@ -37,8 +38,8 @@ public class PopularMoviesFragment extends Fragment {
     private MovieAdapter movieAdapter = new MovieAdapter(null);
 
     public static PopularMoviesFragment newInstance() {
-        PopularMoviesFragment mainPageFragment = new PopularMoviesFragment();
-        return mainPageFragment;
+        PopularMoviesFragment popularMoviesFragment = new PopularMoviesFragment();
+        return popularMoviesFragment;
     }
 
     @Nullable
@@ -46,15 +47,13 @@ public class PopularMoviesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_fragment, container, false);
+        return inflater.inflate(R.layout.popular_movies_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("M_mainPageFragment", "onViewCreated");
-
-        popularMoviesFragmentPresenter.downloadMovies();
 
         recyclerView = view.findViewById(R.id.rw_movies);
 
@@ -78,5 +77,7 @@ public class PopularMoviesFragment extends Fragment {
         FragmentComponent fragmentComponent = DaggerFragmentComponent.
                 builder().activityModule(new ActivityModule(getActivity())).build();
         fragmentComponent.inject(this);
+
+        popularMoviesFragmentPresenter.downloadMovies();
     }
 }

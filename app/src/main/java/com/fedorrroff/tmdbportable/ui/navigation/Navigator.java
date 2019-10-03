@@ -5,5 +5,6 @@ import com.fedorrroff.tmdbportable.models.data.MovieItem;
 public interface Navigator {
 
     void showMovieScreen(MovieItem movie);
+    void showPopularPage();
     void showMainPage();
 }

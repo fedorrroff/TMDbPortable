@@ -7,7 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.ui.main.PopularMoviesFragment;
+import com.fedorrroff.tmdbportable.ui.main.MainPageFragment;
+import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 import com.fedorrroff.tmdbportable.ui.movie.MovieFragment;
 
 import javax.inject.Singleton;
@@ -30,13 +31,19 @@ public class NavigatorImpl implements Navigator {
 
     @Override
     public void showMainPage() {
-        replaceFragmentMain(PopularMoviesFragment.newInstance());
+        replaceFragmentMain(MainPageFragment.newInstance());
     }
 
-    private void replaceFragmentMain(final Fragment fragment) {
+    @Override
+    public void showPopularPage() {
+        replaceFragmentPopular(PopularMoviesFragment.newInstance());
+    }
+
+    private void replaceFragmentPopular(final Fragment fragment) {
        fragmentManager
                 .beginTransaction()
                 .replace(FRAGMENT_CONTAINER, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -46,6 +53,13 @@ public class NavigatorImpl implements Navigator {
                 .replace(FRAGMENT_CONTAINER, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
+                .commit();
+    }
+
+    private void replaceFragmentMain(final Fragment fragment) {
+        fragmentManager
+                .beginTransaction()
+                .replace(FRAGMENT_CONTAINER, fragment)
                 .commit();
     }
 }
