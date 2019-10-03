@@ -11,27 +11,27 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class MainPageFragmentPresenter {
+public class PopularMoviesFragmentPresenter {
 
-    private final MainPageFragment mainPageFragment;
+    private final PopularMoviesFragment popularMoviesFragment;
 
-    public MainPageFragmentPresenter (MainPageFragment mainPageFragment) {
-        this.mainPageFragment = mainPageFragment;
+    public PopularMoviesFragmentPresenter(PopularMoviesFragment popularMoviesFragment) {
+        this.popularMoviesFragment = popularMoviesFragment;
     }
 
     public void downloadMovies() {
-        Log.d("M_mainPageFragment", "onCreate");
+        Log.d("M_popularMoviesFragment", "onCreate");
 
-        new DownloadMovieTask(mainPageFragment).execute();
+        new DownloadMovieTask(popularMoviesFragment).execute();
     }
 
      static class DownloadMovieTask extends AsyncTask <Void, Void, List<MovieItem>> {
 
-        private final WeakReference<MainPageFragment> mainPageFragmentRef;
+        private final WeakReference<PopularMoviesFragment> popularMoviesFragmentRef;
         private final MovieRepository repositoryRef;
 
-        public DownloadMovieTask (MainPageFragment mainPageFragment) {
-            mainPageFragmentRef = new WeakReference<>(mainPageFragment);
+        public DownloadMovieTask (PopularMoviesFragment popularMoviesFragment) {
+            popularMoviesFragmentRef = new WeakReference<>(popularMoviesFragment);
             repositoryRef = MovieRepositoryImpl.getInstance();
         }
 
@@ -48,8 +48,8 @@ public class MainPageFragmentPresenter {
         @Override
         protected void onPostExecute(List<MovieItem> movieItems) {
             super.onPostExecute(movieItems);
-            if (mainPageFragmentRef.get() != null) {
-                mainPageFragmentRef.get().displayMovies(movieItems);
+            if (popularMoviesFragmentRef.get() != null) {
+                popularMoviesFragmentRef.get().displayMovies(movieItems);
             }
         }
     }

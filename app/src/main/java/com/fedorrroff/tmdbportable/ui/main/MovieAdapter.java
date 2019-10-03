@@ -72,8 +72,9 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
     class SingleMovieViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView iv_poster;
-        private TextView tv_description;
         private TextView tv_title;
+        private TextView tv_rating;
+        private TextView tv_date;
         private CardView card_view;
         private RequestOptions requestOptions = new RequestOptions()
                 .diskCacheStrategy(DiskCacheStrategy.NONE);
@@ -81,8 +82,9 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
         public SingleMovieViewHolder(@NonNull View itemView) {
             super(itemView);
             iv_poster = itemView.findViewById(R.id.iv_poster);
-            tv_description = itemView.findViewById(R.id.tv_description);
             tv_title = itemView.findViewById(R.id.tv_title);
+            tv_date = itemView.findViewById(R.id.tv_date);
+            tv_rating = itemView.findViewById(R.id.tv_rating_main);
             card_view = itemView.findViewById(R.id.card_view);
         }
 
@@ -94,13 +96,13 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
                         .apply(requestOptions).into(iv_poster);
             }
 
-            tv_description.setText(item.getOverview());
             tv_title.setText(item.getTitle());
+            tv_date.setText(item.getReleaseDate());
+            tv_rating.setText(item.getVoteAverage().toString());
 
             itemView.setOnClickListener((v) -> {
                 if(listener != null) {
-                    listener.onItemClick(item
-                    );
+                    listener.onItemClick(item);
                 }
             });
         }

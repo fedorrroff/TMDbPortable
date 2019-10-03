@@ -1,19 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        card_view:cardBackgroundColor="@color/color_gray_300"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        card_view:cardBackgroundColor="@android:color/white"
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         card_view:cardElevation="@dimen/card_elevation_normal"
         card_view:cardUseCompatPadding="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -21,41 +22,61 @@
             <ImageView
                 android:id="@+id/iv_poster"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                card_view:layout_constraintTop_toTopOf="parent"/>
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 card_view:layout_constraintTop_toBottomOf="@id/iv_poster">
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    card_view:layout_constraintTop_toTopOf="parent"
-                    android:textSize="@dimen/headline_text_size" />
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="vertical"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
+                    card_view:layout_constraintEnd_toEndOf="parent"
+                    card_view:layout_constraintStart_toEndOf="@+id/tv_rating_main"
+                    card_view:layout_constraintTop_toTopOf="parent">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    card_view:layout_constraintTop_toBottomOf="@id/tv_title"
-                    card_view:layout_constraintBottom_toTopOf="@id/tv_description"
-                    android:background="@android:color/darker_gray"/>
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:singleLine="true"
+                        android:gravity="right"
+                        android:textSize="@dimen/body1_text_size"
+                        tools:text="TextView" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:gravity="right"
+                        android:textSize="8sp"
+                        tools:text="TextView" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_description"
-                    card_view:layout_constraintTop_toBottomOf="@id/tv_title"
+                    android:id="@+id/tv_rating_main"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="4dp"
+                    android:gravity="center"
                     card_view:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="8dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    card_view:layout_constraintStart_toStartOf="parent"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    tools:text="TextView" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

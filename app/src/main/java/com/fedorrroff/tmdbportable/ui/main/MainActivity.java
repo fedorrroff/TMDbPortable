@@ -1,32 +1,36 @@
 package com.fedorrroff.tmdbportable.ui.main;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import com.fedorrroff.tmdbportable.R;
+import com.fedorrroff.tmdbportable.di.ActivityModule;
+import com.fedorrroff.tmdbportable.di.DaggerFragmentComponent;
+import com.fedorrroff.tmdbportable.di.FragmentComponent;
+import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
+
+import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int FRAGMENT_CONTAINER = R.id.fl_toReplace;
+    @Inject
+    Navigator navigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("M_mainActivity", "onCreate");
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            initViews();
-        }
-    }
 
-    private void initViews() {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(FRAGMENT_CONTAINER, MainPageFragment.newInstance())
-                .commit();
+        FragmentComponent fragmentComponent = DaggerFragmentComponent.
+                builder().activityModule(new ActivityModule(this)).build();
+        fragmentComponent.inject(this);
+
+        if (savedInstanceState == null) {
+            navigator.showMainPage();
+        }
     }
 
     @Override

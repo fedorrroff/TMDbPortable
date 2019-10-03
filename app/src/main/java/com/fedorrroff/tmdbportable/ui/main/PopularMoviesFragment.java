@@ -9,28 +9,35 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fedorrroff.tmdbportable.R;
+import com.fedorrroff.tmdbportable.di.ActivityModule;
+import com.fedorrroff.tmdbportable.di.FragmentComponent;
+import com.fedorrroff.tmdbportable.di.DaggerFragmentComponent;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.ui.custom.decor.SpacesItemDecoration;
-import com.fedorrroff.tmdbportable.ui.movie.MovieFragment;
+import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
 import java.util.List;
 
-public class MainPageFragment extends Fragment {
+import javax.inject.Inject;
+
+
+public class PopularMoviesFragment extends Fragment {
 
     public static final String MOVIE = "MOVIE";
 
-    private final MainPageFragmentPresenter mainPageFragmentPresenter = new MainPageFragmentPresenter(this);
+    @Inject
+    Navigator navigator;
+
+    private final PopularMoviesFragmentPresenter popularMoviesFragmentPresenter = new PopularMoviesFragmentPresenter(this);
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter = new MovieAdapter(null);
 
-    public static MainPageFragment newInstance() {
-        MainPageFragment mainPageFragment = new MainPageFragment();
+    public static PopularMoviesFragment newInstance() {
+        PopularMoviesFragment mainPageFragment = new PopularMoviesFragment();
         return mainPageFragment;
     }
 
@@ -47,27 +54,16 @@ public class MainPageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d("M_mainPageFragment", "onViewCreated");
 
+        popularMoviesFragmentPresenter.downloadMovies();
+
         recyclerView = view.findViewById(R.id.rw_movies);
 
         recyclerView.setAdapter(movieAdapter);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
-        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing_tiny);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-
-        movieAdapter.setOnItemClickListener((id) ->
-            getFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.right_to_left, R.anim.left_to_right)
-                    .replace(R.id.fl_toReplace, MovieFragment.newInstance(id))
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                    .addToBackStack(null)
-                    .commit()
-        );
-
-        mainPageFragmentPresenter.downloadMovies();
+        movieAdapter.setOnItemClickListener((id) -> navigator.showMovieScreen(id));
     }
 
     public void displayMovies(List<MovieItem> movies) {
@@ -79,5 +75,8 @@ public class MainPageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FragmentComponent fragmentComponent = DaggerFragmentComponent.
+                builder().activityModule(new ActivityModule(getActivity())).build();
+        fragmentComponent.inject(this);
     }
 }
