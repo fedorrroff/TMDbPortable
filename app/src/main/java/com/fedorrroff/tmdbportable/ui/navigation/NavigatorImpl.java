@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.ui.main.MainPageFragment;
+import com.fedorrroff.tmdbportable.ui.main.NoConnectionFragment;
 import com.fedorrroff.tmdbportable.ui.main.SplashFragment;
 import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 import com.fedorrroff.tmdbportable.ui.movie.MovieFragment;
@@ -38,6 +39,11 @@ public class NavigatorImpl implements Navigator {
     @Override
     public void showSplashScreen() {
         replaceFragmentMain(SplashFragment.newInstance());
+    }
+
+    @Override
+    public void showConnectionPage() {
+        replaceFragmentMain(NoConnectionFragment.newInstance());
     }
 
     @Override

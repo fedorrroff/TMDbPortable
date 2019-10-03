@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.fedorrroff.tmdbportable.ui.main.MainActivity;
 import com.fedorrroff.tmdbportable.ui.main.MainPageFragment;
+import com.fedorrroff.tmdbportable.ui.main.NoConnectionFragment;
 import com.fedorrroff.tmdbportable.ui.main.SplashFragment;
 import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
@@ -27,4 +28,6 @@ public interface FragmentComponent {
     void inject(MainPageFragment mainPageFragment);
 
     void inject(SplashFragment splashFragment);
+
+    void inject(NoConnectionFragment noConnectionFragment);
 }

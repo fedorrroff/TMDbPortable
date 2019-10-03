@@ -8,4 +8,5 @@ public interface Navigator {
     void showPopularPage();
     void showMainPage();
     void showSplashScreen();
+    void showConnectionPage();
 }
