@@ -7,4 +7,5 @@ public interface Navigator {
     void showMovieScreen(MovieItem movie);
     void showPopularPage();
     void showMainPage();
+    void showSplashScreen();
 }

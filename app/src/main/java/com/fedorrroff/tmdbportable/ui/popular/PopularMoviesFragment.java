@@ -28,6 +28,7 @@ import javax.inject.Inject;
 public class PopularMoviesFragment extends Fragment {
 
     public static final String MOVIE = "MOVIE";
+    public static final int SPAN_COUNT = 2;
 
     @Inject
     Navigator navigator;
@@ -47,22 +48,27 @@ public class PopularMoviesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        Log.d("TMDB_TAG", "onCreateView: Popular");
         return inflater.inflate(R.layout.popular_movies_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d("M_mainPageFragment", "onViewCreated");
+        Log.d("TMDB_TAG", "onViewCreated: Popular");
 
         recyclerView = view.findViewById(R.id.rw_movies);
 
         recyclerView.setAdapter(movieAdapter);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), SPAN_COUNT);
         recyclerView.setLayoutManager(layoutManager);
 
         movieAdapter.setOnItemClickListener((id) -> navigator.showMovieScreen(id));
+
+        if (savedInstanceState != null) {
+            popularMoviesFragmentPresenter.downloadMovies();
+        }
     }
 
     public void displayMovies(List<MovieItem> movies) {

@@ -51,13 +51,15 @@ public class MovieFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.d("M_movieFragment", "onCreateView");
+        Log.d("TMDB_TAG", "onCreateView: Detail");
         return inflater.inflate(R.layout.movie_detail_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Log.d("TMDB_TAG", "onViewCreated: Detail");
 
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);

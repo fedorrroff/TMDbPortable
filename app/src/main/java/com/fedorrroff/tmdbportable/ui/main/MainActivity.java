@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentComponent.inject(this);
 
         if (savedInstanceState == null) {
-            navigator.showMainPage();
+            navigator.showSplashScreen();
         }
     }
 
