@@ -36,16 +36,6 @@ public class Adapter extends FragmentPagerAdapter {
         return MainPageFragment.newInstance();
     }
 
-//    @Override
-//    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-//        super.setPrimaryItem(container, position, object);
-//        if (position == 0) {
-//            navigator.showPopularPage();
-//        } else {
-//            navigator.showMainPage();
-//        }
-//    }
-
     @Override
     public int getCount() {
         return 2;

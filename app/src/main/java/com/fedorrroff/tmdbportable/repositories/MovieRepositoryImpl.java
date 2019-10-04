@@ -10,22 +10,21 @@ import com.fedorrroff.tmdbportable.tmdbApi.Requester;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 
 public class MovieRepositoryImpl implements MovieRepository {
-    private static final MovieRepositoryImpl ourInstance = new MovieRepositoryImpl();
 
-    public static MovieRepositoryImpl getInstance() {
-        return ourInstance;
-    }
+    private final APIService movieResource;
 
-    private MovieRepositoryImpl() {
+    @Inject
+    public MovieRepositoryImpl(APIService movieResource) {
+        this.movieResource = movieResource;
     }
 
     @Override
     public List<MovieItem> getMovies() throws IOException {
-        //Create retrofit, set the API base URL and GSonConverterFactory
-        APIService movieResource = Requester.getInstance();
         //Create service
         Call<PopularMoviesPage> moviePage = movieResource.getPopularMoviePage();
         return extractMovieFromPage(moviePage);

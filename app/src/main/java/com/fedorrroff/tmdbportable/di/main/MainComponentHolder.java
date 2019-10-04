@@ -22,8 +22,6 @@ public class MainComponentHolder {
     }
 
     private static class InstanceHolder {
-
         private static final MainComponentHolder INSTANCE = new MainComponentHolder();
     }
-
 }

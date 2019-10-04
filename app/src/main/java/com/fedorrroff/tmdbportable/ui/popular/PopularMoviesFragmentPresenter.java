@@ -20,10 +20,12 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
 
     private PopularMoviesFragment mView;
     private final Navigator mNavigator;
+    private final MovieRepository mMovieRepository;
 
     @Inject
-    public PopularMoviesFragmentPresenter(final Navigator navigator) {
+    public PopularMoviesFragmentPresenter(final Navigator navigator, final MovieRepository movieRepository) {
         mNavigator = navigator;
+        mMovieRepository = movieRepository;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
     public void downloadMovies() {
         Log.d("M_popularMoviesFragment", "onCreate");
 
-        new DownloadMovieTask(mView).execute();
+        new DownloadMovieTask(mView, mMovieRepository).execute();
     }
 
     public void movieSelected(final MovieItem movieItem) {
@@ -44,17 +46,17 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
      static class DownloadMovieTask extends AsyncTask <Void, Void, List<MovieItem>> {
 
         private final WeakReference<PopularMoviesFragment> popularMoviesFragmentRef;
-        private final MovieRepository repositoryRef;
+        private final WeakReference<MovieRepository> repositoryRef;
 
-        public DownloadMovieTask (PopularMoviesFragment popularMoviesFragment) {
+        public DownloadMovieTask (PopularMoviesFragment popularMoviesFragment, MovieRepository repository) {
             popularMoviesFragmentRef = new WeakReference<>(popularMoviesFragment);
-            repositoryRef = MovieRepositoryImpl.getInstance();
+            repositoryRef = new WeakReference<>(repository);
         }
 
         @Override
         protected List<MovieItem> doInBackground(Void... voids) {
             try {
-                return repositoryRef.getMovies();
+                return repositoryRef.get().getMovies();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -68,5 +70,5 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
                 popularMoviesFragmentRef.get().displayMovies(movieItems);
             }
         }
-    }
+     }
 }
