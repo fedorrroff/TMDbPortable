@@ -1,19 +1,17 @@
 package com.fedorrroff.tmdbportable.di;
 
-import com.fedorrroff.tmdbportable.core.BaseFragment;
-import com.fedorrroff.tmdbportable.di.api.APIModule;
 import com.fedorrroff.tmdbportable.di.main.MainComponent;
 import com.fedorrroff.tmdbportable.di.repo.RepositoryModule;
-import com.fedorrroff.tmdbportable.repositories.MovieRepository;
-import com.fedorrroff.tmdbportable.tmdbApi.APIService;
 import com.fedorrroff.tmdbportable.ui.main.MainActivity;
 import com.fedorrroff.tmdbportable.ui.main.MainPageFragment;
 import com.fedorrroff.tmdbportable.ui.main.MainPageFragmentPresenter;
-import com.fedorrroff.tmdbportable.ui.main.NoConnectionFragment;
-import com.fedorrroff.tmdbportable.ui.main.SplashFragment;
+import com.fedorrroff.tmdbportable.ui.main.connection.NoConnectionFragment;
+import com.fedorrroff.tmdbportable.ui.main.splash.SplashFragment;
+import com.fedorrroff.tmdbportable.ui.main.splash.SplashFragmentPresenter;
 import com.fedorrroff.tmdbportable.ui.movie.MovieFragment;
 import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragmentPresenter;
+import com.fedorrroff.tmdbportable.ui.toprated.TopRatedMoviesFragment;
 
 import dagger.Component;
 
@@ -24,6 +22,8 @@ public interface FragmentPresenterComponent {
 
     PopularMoviesFragmentPresenter popularMoviesFragmentPresenter();
 
+    SplashFragmentPresenter splashFragmentPresenter();
+
     void inject(PopularMoviesFragment view);
 
     void inject(MainPageFragment view);
@@ -32,7 +32,9 @@ public interface FragmentPresenterComponent {
 
     void inject(MainActivity mainActivity);
 
-  /*  void inject(SplashFragment splashFragment);
+    void inject(SplashFragment view);
 
-    void inject(NoConnectionFragment noConnectionFragment);*/
+    void inject(NoConnectionFragment view);
+
+    void inject(TopRatedMoviesFragment view);
 }

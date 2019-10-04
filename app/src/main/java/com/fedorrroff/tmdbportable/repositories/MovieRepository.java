@@ -10,5 +10,7 @@ public interface MovieRepository {
 
     List<MovieItem> getMovies() throws IOException;
 
+    List<MovieItem> getTopRatedMovies() throws IOException;
+
     MovieTrailer getMovieTrailer(Integer id) throws IOException;
 }

@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.ui.main;
+package com.fedorrroff.tmdbportable.ui.main.splash;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,19 +8,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.fedorrroff.tmdbportable.R;
-import com.fedorrroff.tmdbportable.di.main.MainComponentHolder;
-import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
-import com.fedorrroff.tmdbportable.utils.NetworkUtil;
+import com.fedorrroff.tmdbportable.core.BaseFragment;
+import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
 
 import javax.inject.Inject;
 
-public class SplashFragment extends Fragment {
+public class SplashFragment extends BaseFragment {
 
-    @Inject
-    Navigator navigator;
+    @Inject SplashFragmentPresenter splashFragmentPresenter;
 
     public static SplashFragment newInstance() {
         return new SplashFragment();
@@ -38,17 +35,23 @@ public class SplashFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         view.postDelayed(() ->  {
-            if (NetworkUtil.getConnectivityStatus(getContext())) {
-                navigator.showMainPage();
-            } else {
-                navigator.showConnectionPage();
-            }
+            splashFragmentPresenter.nextPageSplash();
         }, 1000);
+    }
+
+    @Override
+    protected void injectDependencies(final FragmentPresenterComponent fragmentPresenterComponent
+    ) {
+        fragmentPresenterComponent.inject(this);
+    }
+
+    @Override
+    public void attachViewToPresenter() {
+        splashFragmentPresenter.attachView(this);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainComponentHolder.getInstance().getMainComponent().inject(this);
     }
 }

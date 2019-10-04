@@ -78,12 +78,13 @@ public class MovieFragment extends BaseFragment {
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);
 
-        movieFragmentPresenter.downloadMovieInfo(movie.getId());
-
         tv_descr = view.findViewById(R.id.tv_description_detail);
         tv_title = view.findViewById(R.id.tv_title_detail);
         tv_rating = view.findViewById(R.id.tv_rating);
         iv_poster = view.findViewById(R.id.iv_poster_detail);
+
+        movieFragmentPresenter.downloadMovieInfo(movie.getId());
+
         displayMovieInfo(movie);
     }
 

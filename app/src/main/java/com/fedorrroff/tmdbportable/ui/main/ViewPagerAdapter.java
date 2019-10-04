@@ -15,12 +15,12 @@ import com.fedorrroff.tmdbportable.ui.toprated.TopRatedMoviesFragment;
 
 import javax.inject.Inject;
 
-public class Adapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Inject
     Navigator navigator;
 
-    public Adapter(@NonNull FragmentManager fm, int behavior) {
+    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 

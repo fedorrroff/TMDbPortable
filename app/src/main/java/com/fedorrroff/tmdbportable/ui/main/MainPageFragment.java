@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fedorrroff.tmdbportable.R;
+import com.fedorrroff.tmdbportable.core.BaseFragment;
+import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
 import com.google.android.material.tabs.TabLayout;
 
 import javax.inject.Inject;
 
-public class MainPageFragment extends Fragment {
+public class MainPageFragment extends BaseFragment {
 
     @Inject
     MainPageFragmentPresenter presenter;
@@ -47,9 +48,20 @@ public class MainPageFragment extends Fragment {
         Log.d("TMDB_TAG", "onViewCreated: Main Fragment");
         ViewPager pager = view.findViewById(R.id.pager);
         FragmentManager fragmentManager = getChildFragmentManager();
-        pager.setAdapter(new Adapter(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+        pager.setAdapter(new ViewPagerAdapter(fragmentManager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
 
         TabLayout tabLayout = view.findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(pager);
+    }
+
+    @Override
+    protected void injectDependencies(final FragmentPresenterComponent fragmentPresenterComponent
+    ) {
+        fragmentPresenterComponent.inject(this);
+    }
+
+    @Override
+    public void attachViewToPresenter() {
+        presenter.attachView(this);
     }
 }
