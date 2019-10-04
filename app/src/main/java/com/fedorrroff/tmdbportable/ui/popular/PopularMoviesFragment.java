@@ -8,30 +8,25 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fedorrroff.tmdbportable.R;
-import com.fedorrroff.tmdbportable.di.main.MainComponentHolder;
+import com.fedorrroff.tmdbportable.core.BaseFragment;
+import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.ui.main.MovieAdapter;
-import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-
-public class PopularMoviesFragment extends Fragment {
+public class PopularMoviesFragment extends BaseFragment {
 
     public static final String MOVIE = "MOVIE";
     public static final int SPAN_COUNT = 2;
 
-    @Inject
-    Navigator navigator;
-
-    private final PopularMoviesFragmentPresenter popularMoviesFragmentPresenter = new PopularMoviesFragmentPresenter(this);
+    @Inject PopularMoviesFragmentPresenter popularMoviesFragmentPresenter;
 
     private RecyclerView recyclerView;
     private MovieAdapter movieAdapter = new MovieAdapter(null);
@@ -39,6 +34,24 @@ public class PopularMoviesFragment extends Fragment {
     public static PopularMoviesFragment newInstance() {
         PopularMoviesFragment popularMoviesFragment = new PopularMoviesFragment();
         return popularMoviesFragment;
+    }
+
+    @Override
+    protected void injectDependencies(
+            final FragmentPresenterComponent fragmentPresenterComponent
+    ) {
+        fragmentPresenterComponent.inject(this);
+    }
+
+    @Override
+    public void attachViewToPresenter() {
+        popularMoviesFragmentPresenter.attachView(this);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        popularMoviesFragmentPresenter.downloadMovies();
     }
 
     @Nullable
@@ -62,7 +75,7 @@ public class PopularMoviesFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), SPAN_COUNT);
         recyclerView.setLayoutManager(layoutManager);
 
-        movieAdapter.setOnItemClickListener((id) -> navigator.showMovieScreen(id));
+        movieAdapter.setOnItemClickListener((movieItem) -> popularMoviesFragmentPresenter.movieSelected(movieItem));
 
         if (savedInstanceState != null) {
             popularMoviesFragmentPresenter.downloadMovies();
@@ -73,13 +86,5 @@ public class PopularMoviesFragment extends Fragment {
         if (recyclerView != null) {
             recyclerView.post(() -> movieAdapter.addAllItems(movies));
         }
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        MainComponentHolder.getInstance().getMainComponent().inject(this);
-
-        popularMoviesFragmentPresenter.downloadMovies();
     }
 }
