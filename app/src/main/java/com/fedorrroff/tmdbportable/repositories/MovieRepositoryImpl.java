@@ -16,10 +16,10 @@ import retrofit2.Call;
 
 public class MovieRepositoryImpl implements MovieRepository {
 
-    private final APIService movieResource;
+    private final Requester movieResource;
 
     @Inject
-    public MovieRepositoryImpl(APIService movieResource) {
+    public MovieRepositoryImpl(Requester movieResource) {
         this.movieResource = movieResource;
     }
 
@@ -32,7 +32,6 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public MovieTrailer getMovieTrailer(Integer id) throws IOException {
-        APIService movieResource = Requester.getInstance();
         //Create service
         Call<MovieDetail> movieDetail = movieResource.getMovieDetail(id);
         List<MovieTrailer> trailers = extractTrailersFromMovie(movieDetail);

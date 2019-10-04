@@ -32,7 +32,7 @@ public interface FragmentPresenterComponent {
 
     void inject(MainActivity mainActivity);
 
-    void inject(SplashFragment splashFragment);
+  /*  void inject(SplashFragment splashFragment);
 
-    void inject(NoConnectionFragment noConnectionFragment);
+    void inject(NoConnectionFragment noConnectionFragment);*/
 }
