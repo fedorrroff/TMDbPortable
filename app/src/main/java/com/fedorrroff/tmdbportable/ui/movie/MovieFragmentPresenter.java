@@ -2,40 +2,55 @@ package com.fedorrroff.tmdbportable.ui.movie;
 
 import android.os.AsyncTask;
 
+import com.fedorrroff.tmdbportable.core.BaseFragment;
+import com.fedorrroff.tmdbportable.core.BasePresenter;
 import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
 import com.fedorrroff.tmdbportable.repositories.MovieRepositoryImpl;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
+import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
+import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-public class MovieFragmentPresenter {
+import javax.inject.Inject;
 
-    private final MovieFragment movieFragment;
+public class MovieFragmentPresenter implements BasePresenter<MovieFragment> {
 
-    public MovieFragmentPresenter (MovieFragment movieFragment) {
-        this.movieFragment = movieFragment;
+    private MovieFragment mView;
+    private final Navigator mNavigator;
+    private final MovieRepository mMovieRepository;
+
+    @Inject
+    public MovieFragmentPresenter(final Navigator navigator, final MovieRepository movieRepository) {
+        mNavigator = navigator;
+        mMovieRepository = movieRepository;
+    }
+
+    @Override
+    public void attachView(MovieFragment view) {
+        mView = view;
     }
 
     public void downloadMovieInfo(Integer id) {
-        new DownloadMovieInfoTask(movieFragment).execute(id);
+        new DownloadMovieInfoTask(mView, mMovieRepository).execute(id);
     }
 
     static class DownloadMovieInfoTask extends AsyncTask<Integer, Void, MovieTrailer> {
 
         private final WeakReference<MovieFragment> movieFragmentRef;
-        private final MovieRepository repositoryRef;
+        private final WeakReference<MovieRepository> repositoryRef;
 
-        public DownloadMovieInfoTask(MovieFragment movieFragment) {
+        public DownloadMovieInfoTask(MovieFragment movieFragment, MovieRepository repository) {
             movieFragmentRef = new WeakReference<>(movieFragment);
-            repositoryRef = MovieRepositoryImpl.getInstance();
+            repositoryRef = new WeakReference<>(repository);
         }
 
         @Override
         protected MovieTrailer doInBackground(Integer... integers) {
             try {
                 for (Integer integer: integers) {
-                    return repositoryRef.getMovieTrailer(integer);
+                    return repositoryRef.get().getMovieTrailer(integer);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
