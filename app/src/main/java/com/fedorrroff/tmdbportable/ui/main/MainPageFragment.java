@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.fedorrroff.tmdbportable.R;
-import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 import com.google.android.material.tabs.TabLayout;
 
 import javax.inject.Inject;
@@ -22,7 +21,7 @@ import javax.inject.Inject;
 public class MainPageFragment extends Fragment {
 
     @Inject
-    Navigator navigator;
+    MainPageFragmentPresenter presenter;
 
     public static MainPageFragment newInstance() {
         MainPageFragment mainPageFragment = new MainPageFragment();

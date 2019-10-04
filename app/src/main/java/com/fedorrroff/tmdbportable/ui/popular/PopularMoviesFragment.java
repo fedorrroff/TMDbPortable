@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fedorrroff.tmdbportable.R;
-import com.fedorrroff.tmdbportable.di.ActivityModule;
-import com.fedorrroff.tmdbportable.di.FragmentComponent;
-import com.fedorrroff.tmdbportable.di.DaggerFragmentComponent;
+import com.fedorrroff.tmdbportable.di.main.MainComponentHolder;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.ui.main.MovieAdapter;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
@@ -80,9 +78,7 @@ public class PopularMoviesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentComponent fragmentComponent = DaggerFragmentComponent.
-                builder().activityModule(new ActivityModule(getActivity())).build();
-        fragmentComponent.inject(this);
+        MainComponentHolder.getInstance().getMainComponent().inject(this);
 
         popularMoviesFragmentPresenter.downloadMovies();
     }

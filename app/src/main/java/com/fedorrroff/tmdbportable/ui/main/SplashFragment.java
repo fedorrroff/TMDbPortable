@@ -11,9 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.fedorrroff.tmdbportable.R;
-import com.fedorrroff.tmdbportable.di.ActivityModule;
-import com.fedorrroff.tmdbportable.di.DaggerFragmentComponent;
-import com.fedorrroff.tmdbportable.di.FragmentComponent;
+import com.fedorrroff.tmdbportable.di.main.MainComponentHolder;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 import com.fedorrroff.tmdbportable.utils.NetworkUtil;
 
@@ -51,8 +49,6 @@ public class SplashFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentComponent fragmentComponent = DaggerFragmentComponent.
-                builder().activityModule(new ActivityModule(getActivity())).build();
-        fragmentComponent.inject(this);
+        MainComponentHolder.getInstance().getMainComponent().inject(this);
     }
 }

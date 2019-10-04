@@ -1,14 +1,13 @@
 package com.fedorrroff.tmdbportable.ui.main;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fedorrroff.tmdbportable.R;
-import com.fedorrroff.tmdbportable.di.ActivityModule;
-import com.fedorrroff.tmdbportable.di.DaggerFragmentComponent;
-import com.fedorrroff.tmdbportable.di.FragmentComponent;
+import com.fedorrroff.tmdbportable.di.main.MainComponent;
+import com.fedorrroff.tmdbportable.di.main.MainComponentHolder;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
 import javax.inject.Inject;
@@ -24,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("M_mainActivity", "onCreate");
         setContentView(R.layout.activity_main);
 
-        FragmentComponent fragmentComponent = DaggerFragmentComponent.
-                builder().activityModule(new ActivityModule(this)).build();
-        fragmentComponent.inject(this);
+        MainComponentHolder mainComponentHolder = MainComponentHolder.getInstance();
+        mainComponentHolder.initDaggerComponent(this);
+        mainComponentHolder.getMainComponent().inject(this);
 
         if (savedInstanceState == null) {
             navigator.showSplashScreen();
