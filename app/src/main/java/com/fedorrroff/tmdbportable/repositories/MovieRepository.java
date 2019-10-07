@@ -1,7 +1,7 @@
 package com.fedorrroff.tmdbportable.repositories;
 
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
+import com.fedorrroff.models.data.MovieItem;
+import com.fedorrroff.models.data.MovieTrailer;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.models.data;
+package com.fedorrroff.models.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

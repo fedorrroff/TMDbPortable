@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.core.BaseFragment;
 import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
+import com.fedorrroff.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.ui.custom.decor.MovieAdapter;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.fedorrroff.tmdbportable.tmdbApi;
 
-import com.fedorrroff.tmdbportable.models.data.MovieDetail;
-import com.fedorrroff.tmdbportable.models.data.PopularMoviesPage;
-import com.fedorrroff.tmdbportable.models.data.TopRatedMoviePage;
+import com.fedorrroff.models.data.MovieDetail;
+import com.fedorrroff.models.data.PopularMoviesPage;
+import com.fedorrroff.models.data.TopRatedMoviePage;
 
 import retrofit2.Call;
 

@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.fedorrroff.tmdbportable.R;
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
+import com.fedorrroff.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.ui.main.MainPageFragment;
 import com.fedorrroff.tmdbportable.ui.main.connection.NoConnectionFragment;
 import com.fedorrroff.tmdbportable.ui.main.splash.SplashFragment;

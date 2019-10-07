@@ -1,5 +1,5 @@
 
-package com.fedorrroff.tmdbportable.models.data;
+package com.fedorrroff.models.data;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;

@@ -1,10 +1,10 @@
 package com.fedorrroff.tmdbportable.repositories;
 
-import com.fedorrroff.tmdbportable.models.data.MovieDetail;
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
-import com.fedorrroff.tmdbportable.models.data.PopularMoviesPage;
-import com.fedorrroff.tmdbportable.models.data.TopRatedMoviePage;
+import com.fedorrroff.models.data.MovieDetail;
+import com.fedorrroff.models.data.MovieItem;
+import com.fedorrroff.models.data.MovieTrailer;
+import com.fedorrroff.models.data.PopularMoviesPage;
+import com.fedorrroff.models.data.TopRatedMoviePage;
 import com.fedorrroff.tmdbportable.tmdbApi.Requester;
 
 import java.io.IOException;

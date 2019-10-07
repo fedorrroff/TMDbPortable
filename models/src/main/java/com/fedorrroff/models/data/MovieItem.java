@@ -1,5 +1,5 @@
 
-package com.fedorrroff.tmdbportable.models.data;
+package com.fedorrroff.models.data;
 
 import java.io.Serializable;
 import java.util.List;

@@ -13,7 +13,6 @@ import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -21,8 +20,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.core.BaseFragment;
 import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
+import com.fedorrroff.models.data.MovieItem;
+import com.fedorrroff.models.data.MovieTrailer;
 
 import javax.inject.Inject;
 
