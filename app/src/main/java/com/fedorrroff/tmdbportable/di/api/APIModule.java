@@ -1,7 +1,7 @@
 package com.fedorrroff.tmdbportable.di.api;
 
-import com.fedorrroff.tmdbportable.tmdbApi.APIService;
-import com.fedorrroff.tmdbportable.tmdbApi.Requester;
+import com.fedorrroff.api.tmdbApi.APIService;
+import com.fedorrroff.api.tmdbApi.Requester;
 
 import dagger.Module;
 import dagger.Provides;

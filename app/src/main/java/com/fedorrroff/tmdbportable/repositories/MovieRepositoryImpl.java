@@ -5,7 +5,7 @@ import com.fedorrroff.models.data.MovieItem;
 import com.fedorrroff.models.data.MovieTrailer;
 import com.fedorrroff.models.data.PopularMoviesPage;
 import com.fedorrroff.models.data.TopRatedMoviePage;
-import com.fedorrroff.tmdbportable.tmdbApi.Requester;
+import com.fedorrroff.api.tmdbApi.Requester;
 
 import java.io.IOException;
 import java.util.List;

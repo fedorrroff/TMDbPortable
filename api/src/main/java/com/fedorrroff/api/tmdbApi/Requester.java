@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.tmdbApi;
+package com.fedorrroff.api.tmdbApi;
 
 import com.fedorrroff.models.data.MovieDetail;
 import com.fedorrroff.models.data.PopularMoviesPage;

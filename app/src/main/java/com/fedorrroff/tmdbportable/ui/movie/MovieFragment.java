@@ -1,5 +1,6 @@
 package com.fedorrroff.tmdbportable.ui.movie;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -88,16 +89,16 @@ public class MovieFragment extends BaseFragment {
     }
 
     public void displayMovieTrailer(MovieTrailer movieTrailer) {
-//        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
-//        youtube_btn.setOnClickListener((v) ->
-//                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
+        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
+        youtube_btn.setOnClickListener((v) ->
+                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
 
-        VideoView vv_trailer = getView().findViewById(R.id.vv_trailer);
-        vv_trailer.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()));
-        vv_trailer.setMediaController(new MediaController(getContext()));
-
-        vv_trailer.requestFocus();
-        vv_trailer.start();
+//        VideoView vv_trailer = getView().findViewById(R.id.vv_trailer);
+//        vv_trailer.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()));
+//        vv_trailer.setMediaController(new MediaController(getContext()));
+//
+//        vv_trailer.requestFocus();
+//        vv_trailer.start();
     }
 
     public void displayMovieInfo(MovieItem movie) {
