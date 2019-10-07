@@ -19,20 +19,23 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.fedorrroff.tmdbportable.R;
+import com.fedorrroff.tmdbportable.core.BaseFragment;
+import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
 
+import javax.inject.Inject;
+
 import static com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment.MOVIE;
 
-public class MovieFragment extends Fragment {
+public class MovieFragment extends BaseFragment {
 
-    private final MovieFragmentPresenter movieFragmentPresenter = new MovieFragmentPresenter(this);
+    @Inject MovieFragmentPresenter movieFragmentPresenter;
 
     private TextView tv_descr;
     private TextView tv_title;
     private TextView tv_rating;
     private ImageView iv_poster;
-
     private RequestOptions requestOptions = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE);
 
@@ -44,6 +47,17 @@ public class MovieFragment extends Fragment {
         movieFragment.setArguments(arguments);
 
         return movieFragment;
+    }
+
+    @Override
+    protected void injectDependencies(final FragmentPresenterComponent fragmentPresenterComponent
+    ) {
+        fragmentPresenterComponent.inject(this);
+    }
+
+    @Override
+    public void attachViewToPresenter() {
+        movieFragmentPresenter.attachView(this);
     }
 
     @Nullable
@@ -64,12 +78,13 @@ public class MovieFragment extends Fragment {
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);
 
-        movieFragmentPresenter.downloadMovieInfo(movie.getId());
-
         tv_descr = view.findViewById(R.id.tv_description_detail);
         tv_title = view.findViewById(R.id.tv_title_detail);
         tv_rating = view.findViewById(R.id.tv_rating);
         iv_poster = view.findViewById(R.id.iv_poster_detail);
+
+        movieFragmentPresenter.downloadMovieInfo(movie.getId());
+
         displayMovieInfo(movie);
     }
 

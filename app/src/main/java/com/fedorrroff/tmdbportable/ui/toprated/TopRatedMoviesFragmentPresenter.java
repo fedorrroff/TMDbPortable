@@ -1,12 +1,10 @@
-package com.fedorrroff.tmdbportable.ui.popular;
+package com.fedorrroff.tmdbportable.ui.toprated;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.fedorrroff.tmdbportable.core.BaseFragment;
 import com.fedorrroff.tmdbportable.core.BasePresenter;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.repositories.MovieRepositoryImpl;
 import com.fedorrroff.tmdbportable.repositories.MovieRepository;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
@@ -16,26 +14,25 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMoviesFragment> {
+public class TopRatedMoviesFragmentPresenter implements BasePresenter<TopRatedMoviesFragment> {
 
-    private PopularMoviesFragment mView;
+    private TopRatedMoviesFragment mView;
     private final Navigator mNavigator;
     private final MovieRepository mMovieRepository;
 
     @Inject
-    public PopularMoviesFragmentPresenter(final Navigator navigator, final MovieRepository movieRepository) {
+    public TopRatedMoviesFragmentPresenter(final Navigator navigator, final MovieRepository movieRepository) {
         mNavigator = navigator;
         mMovieRepository = movieRepository;
     }
 
     @Override
-    public void attachView(final PopularMoviesFragment view) {
+    public void attachView(TopRatedMoviesFragment view) {
         mView = view;
     }
 
-    public void downloadMovies() {
+    public void downloadTopRatedMovies() {
         Log.d("M_popularMoviesFragment", "onCreate");
-
         new DownloadMovieTask(mView, mMovieRepository).execute();
     }
 
@@ -43,20 +40,20 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
         mNavigator.showMovieScreen(movieItem);
     }
 
-     static class DownloadMovieTask extends AsyncTask <Void, Void, List<MovieItem>> {
+    static class DownloadMovieTask extends AsyncTask<Void, Void, List<MovieItem>> {
 
-        private final WeakReference<PopularMoviesFragment> popularMoviesFragmentRef;
+        private final WeakReference<TopRatedMoviesFragment> topRatedMoviesFragmentRef;
         private final WeakReference<MovieRepository> repositoryRef;
 
-        public DownloadMovieTask (PopularMoviesFragment popularMoviesFragment, MovieRepository repository) {
-            popularMoviesFragmentRef = new WeakReference<>(popularMoviesFragment);
+        public DownloadMovieTask (TopRatedMoviesFragment topRatedMoviesFragment, MovieRepository repository) {
+            topRatedMoviesFragmentRef = new WeakReference<>(topRatedMoviesFragment);
             repositoryRef = new WeakReference<>(repository);
         }
 
         @Override
         protected List<MovieItem> doInBackground(Void... voids) {
             try {
-                return repositoryRef.get().getMovies();
+                return repositoryRef.get().getTopRatedMovies();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,9 +63,9 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
         @Override
         protected void onPostExecute(List<MovieItem> movieItems) {
             super.onPostExecute(movieItems);
-            if (popularMoviesFragmentRef.get() != null) {
-                popularMoviesFragmentRef.get().displayMovies(movieItems);
+            if (topRatedMoviesFragmentRef.get() != null) {
+                topRatedMoviesFragmentRef.get().displayMovies(movieItems);
             }
         }
-     }
+    }
 }

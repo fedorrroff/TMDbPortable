@@ -1,15 +1,14 @@
 package com.fedorrroff.tmdbportable.ui.navigation;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.models.data.MovieItem;
 import com.fedorrroff.tmdbportable.ui.main.MainPageFragment;
-import com.fedorrroff.tmdbportable.ui.main.NoConnectionFragment;
-import com.fedorrroff.tmdbportable.ui.main.SplashFragment;
+import com.fedorrroff.tmdbportable.ui.main.connection.NoConnectionFragment;
+import com.fedorrroff.tmdbportable.ui.main.splash.SplashFragment;
 import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 import com.fedorrroff.tmdbportable.ui.movie.MovieFragment;
 
@@ -22,7 +21,7 @@ public class NavigatorImpl implements Navigator {
 
     private final FragmentManager fragmentManager;
 
-    public NavigatorImpl(final FragmentActivity activity) {
+    public NavigatorImpl(final AppCompatActivity activity) {
         fragmentManager = activity.getSupportFragmentManager();
     }
 

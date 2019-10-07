@@ -2,6 +2,7 @@ package com.fedorrroff.tmdbportable.tmdbApi;
 
 import com.fedorrroff.tmdbportable.models.data.MovieDetail;
 import com.fedorrroff.tmdbportable.models.data.PopularMoviesPage;
+import com.fedorrroff.tmdbportable.models.data.TopRatedMoviePage;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,4 +19,7 @@ public interface APIService {
     Call<MovieDetail> getMovieDetail(
             @Path("movie_id") Integer id
     );
+
+    @GET("movie/top_rated?api_key=" + API_KEY)
+    Call<TopRatedMoviePage> getTopRatedMoviePage();
 }

@@ -1,21 +1,28 @@
 package com.fedorrroff.tmdbportable.tmdbApi;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.fedorrroff.tmdbportable.models.data.MovieDetail;
+import com.fedorrroff.tmdbportable.models.data.PopularMoviesPage;
+import com.fedorrroff.tmdbportable.models.data.TopRatedMoviePage;
+
+import retrofit2.Call;
 
 public class Requester {
 
-    public static final String BASE_URL = "https://api.themoviedb.org/3/";
+    private final APIService apiService;
 
-    private static final APIService ourInstance = new Retrofit.Builder().baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(APIService.class);
-
-    private Requester() {
+    public Requester(APIService apiService) {
+        this.apiService = apiService;
     }
 
-    public static APIService getInstance() {
-        return ourInstance;
+    public Call<PopularMoviesPage> getPopularMoviePage() {
+        return apiService.getPopularMoviePage();
+    }
+
+    public Call<TopRatedMoviePage> getTopRatedMoviePage() {
+        return apiService.getTopRatedMoviePage();
+    }
+
+    public Call<MovieDetail> getMovieDetail(Integer id) {
+        return apiService.getMovieDetail(id);
     }
 }
