@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.ui.main;
+package com.fedorrroff.tmdbportable.ui.custom.decor;
 
 import android.view.LayoutInflater;
 import android.view.View;

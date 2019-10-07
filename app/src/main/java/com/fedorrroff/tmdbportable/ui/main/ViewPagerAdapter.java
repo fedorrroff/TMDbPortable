@@ -15,12 +15,12 @@ import com.fedorrroff.tmdbportable.ui.toprated.TopRatedMoviesFragment;
 
 import javax.inject.Inject;
 
-public class Adapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Inject
     Navigator navigator;
 
-    public Adapter(@NonNull FragmentManager fm, int behavior) {
+    public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
@@ -35,16 +35,6 @@ public class Adapter extends FragmentPagerAdapter {
         }
         return MainPageFragment.newInstance();
     }
-
-//    @Override
-//    public void setPrimaryItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-//        super.setPrimaryItem(container, position, object);
-//        if (position == 0) {
-//            navigator.showPopularPage();
-//        } else {
-//            navigator.showMainPage();
-//        }
-//    }
 
     @Override
     public int getCount() {

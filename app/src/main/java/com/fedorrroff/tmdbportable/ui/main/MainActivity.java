@@ -25,10 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
         MainComponentHolder mainComponentHolder = MainComponentHolder.getInstance();
         mainComponentHolder.initDaggerComponent(this);
-        mainComponentHolder.getMainComponent().inject(this);
 
         if (savedInstanceState == null) {
-            navigator.showSplashScreen();
+            mainComponentHolder.getMainComponent().navigator().showSplashScreen();
         }
     }
 
