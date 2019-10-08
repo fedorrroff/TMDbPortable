@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.repositories;
+package com.fedorrroff.repositories;
 
 import com.fedorrroff.models.data.MovieDetail;
 import com.fedorrroff.models.data.MovieItem;
@@ -6,6 +6,7 @@ import com.fedorrroff.models.data.MovieTrailer;
 import com.fedorrroff.models.data.PopularMoviesPage;
 import com.fedorrroff.models.data.TopRatedMoviePage;
 import com.fedorrroff.api.tmdbApi.Requester;
+import com.fedorrroff.repositories.MovieRepository;
 
 import java.io.IOException;
 import java.util.List;
