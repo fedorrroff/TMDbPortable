@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.fedorrroff.tmdbportable.BuildConfig;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.models.data.MovieItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieViewHolder> {
 
     private final List<MovieItem> items;
     private OnItemClickListener listener;
@@ -96,8 +97,13 @@ public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovie
                         .apply(requestOptions).into(iv_poster);
             }
 
-            tv_title.setText(item.getTitle());
-            tv_date.setText(item.getReleaseDate());
+            //TODO Верни все на место!
+
+            String newTitle = BuildConfig.APP;
+            String newDescr = com.fedorrroff.models.BuildConfig.MODELS;
+
+            tv_title.setText(newTitle);
+            tv_date.setText(newDescr);
             tv_rating.setText(item.getVoteAverage().toString());
 
             itemView.setOnClickListener((v) -> {
