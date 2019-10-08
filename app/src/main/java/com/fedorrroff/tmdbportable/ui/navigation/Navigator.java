@@ -1,6 +1,6 @@
 package com.fedorrroff.tmdbportable.ui.navigation;
 
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
+import com.fedorrroff.models.data.MovieItem;
 
 public interface Navigator {
 

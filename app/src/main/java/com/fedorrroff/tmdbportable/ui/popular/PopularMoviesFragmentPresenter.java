@@ -3,11 +3,9 @@ package com.fedorrroff.tmdbportable.ui.popular;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.fedorrroff.tmdbportable.core.BaseFragment;
 import com.fedorrroff.tmdbportable.core.BasePresenter;
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.repositories.MovieRepositoryImpl;
-import com.fedorrroff.tmdbportable.repositories.MovieRepository;
+import com.fedorrroff.models.data.MovieItem;
+import com.fedorrroff.repositories.MovieRepository;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
 
 import java.io.IOException;

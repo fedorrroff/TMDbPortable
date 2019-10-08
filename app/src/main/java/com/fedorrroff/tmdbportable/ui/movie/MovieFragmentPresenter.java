@@ -2,13 +2,10 @@ package com.fedorrroff.tmdbportable.ui.movie;
 
 import android.os.AsyncTask;
 
-import com.fedorrroff.tmdbportable.core.BaseFragment;
 import com.fedorrroff.tmdbportable.core.BasePresenter;
-import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
-import com.fedorrroff.tmdbportable.repositories.MovieRepositoryImpl;
-import com.fedorrroff.tmdbportable.repositories.MovieRepository;
+import com.fedorrroff.models.data.MovieTrailer;
+import com.fedorrroff.repositories.MovieRepository;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
-import com.fedorrroff.tmdbportable.ui.popular.PopularMoviesFragment;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;

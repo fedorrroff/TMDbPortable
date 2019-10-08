@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':models', ':api', ':repositories'
 rootProject.name='TMDbPortable'

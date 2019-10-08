@@ -1,5 +1,6 @@
 package com.fedorrroff.tmdbportable.ui.movie;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,6 @@ import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -21,8 +21,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.core.BaseFragment;
 import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
-import com.fedorrroff.tmdbportable.models.data.MovieItem;
-import com.fedorrroff.tmdbportable.models.data.MovieTrailer;
+import com.fedorrroff.models.data.MovieItem;
+import com.fedorrroff.models.data.MovieTrailer;
 
 import javax.inject.Inject;
 
@@ -89,16 +89,16 @@ public class MovieFragment extends BaseFragment {
     }
 
     public void displayMovieTrailer(MovieTrailer movieTrailer) {
-//        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
-//        youtube_btn.setOnClickListener((v) ->
-//                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
+        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
+        youtube_btn.setOnClickListener((v) ->
+                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
 
-        VideoView vv_trailer = getView().findViewById(R.id.vv_trailer);
-        vv_trailer.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()));
-        vv_trailer.setMediaController(new MediaController(getContext()));
-
-        vv_trailer.requestFocus();
-        vv_trailer.start();
+//        VideoView vv_trailer = getView().findViewById(R.id.vv_trailer);
+//        vv_trailer.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()));
+//        vv_trailer.setMediaController(new MediaController(getContext()));
+//
+//        vv_trailer.requestFocus();
+//        vv_trailer.start();
     }
 
     public void displayMovieInfo(MovieItem movie) {
