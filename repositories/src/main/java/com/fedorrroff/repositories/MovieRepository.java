@@ -1,4 +1,4 @@
-package com.fedorrroff.tmdbportable.repositories;
+package com.fedorrroff.repositories;
 
 import com.fedorrroff.models.data.MovieItem;
 import com.fedorrroff.models.data.MovieTrailer;
