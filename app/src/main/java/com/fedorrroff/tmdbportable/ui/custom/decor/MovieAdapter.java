@@ -97,13 +97,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieV
                         .apply(requestOptions).into(iv_poster);
             }
 
-            //TODO Верни все на место!
-
-            String newTitle = BuildConfig.APP;
-            String newDescr = com.fedorrroff.models.BuildConfig.MODELS;
-
-            tv_title.setText(newTitle);
-            tv_date.setText(newDescr);
+            tv_title.setText(item.getTitle());
+            tv_date.setText(item.getReleaseDate());
             tv_rating.setText(item.getVoteAverage().toString());
 
             itemView.setOnClickListener((v) -> {
