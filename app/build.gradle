@@ -21,6 +21,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "app"
+    productFlavors {
+        pro{
+            dimension "app"
+            applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
+        }
+        common{
+            dimension "app"
+            applicationIdSuffix ".common"
+            versionNameSuffix "-common"
+        }
+    }
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
