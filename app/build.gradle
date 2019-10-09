@@ -73,6 +73,7 @@ dependencies {
     implementation project(':api')
     implementation project(':repositories')
     implementation project(':database')
+    compile project(path: ':utils')
 }
 repositories {
     mavenCentral()

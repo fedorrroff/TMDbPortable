@@ -1,10 +1,11 @@
 package com.fedorrroff.tmdbportable.ui.main.splash;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fedorrroff.tmdbportable.core.BasePresenter;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
-import com.fedorrroff.tmdbportable.utils.NetworkUtil;
+import com.fedorrroff.utils.utils.NetworkUtil;
 
 import javax.inject.Inject;
 
@@ -26,10 +27,19 @@ public class SplashFragmentPresenter implements BasePresenter<SplashFragment> {
     }
 
     public void nextPageSplash() {
-        if (NetworkUtil.getConnectivityStatus(mActivity.getBaseContext())) {
+        if (NetworkUtil.isConnectionAvailable(mActivity.getBaseContext())) {
             mNavigator.showMainPage();
         } else {
-            mNavigator.showConnectionPage();
+            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+
+            builder.setTitle("Load from DB?");
+
+            builder.setPositiveButton("YES", (dialogInterface, i) -> mNavigator.showMainPage());
+            builder.setNegativeButton("NO", (dialog, id) -> mNavigator.showMainPage());
+
+            AlertDialog dialog = builder.create();
+
+            dialog.show();
         }
     }
 }
