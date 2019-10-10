@@ -23,8 +23,8 @@
         </activity>
 
         <provider
-            android:authorities="com.fedorrroff.tmdbportable.providers"
-            android:name="com.fedorrroff.tmdbportable.providers.MoviesProvider"
+            android:authorities="com.fedorrroff.tmdbportable.MoviesProvider"
+            android:name=".providers.MoviesProvider"
             android:exported="true"/>
 
     </application>
