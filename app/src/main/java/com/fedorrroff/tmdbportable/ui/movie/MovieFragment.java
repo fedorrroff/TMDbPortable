@@ -93,10 +93,14 @@ public class MovieFragment extends BaseFragment {
     }
 
     public void displayMovieTrailer(MovieTrailer movieTrailer) {
-        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
-        youtube_btn.setOnClickListener((v) ->
-                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
+        final View view = getView();
+        if (view != null){
+            ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
+            youtube_btn.setOnClickListener((v) ->
+                    getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
+        }
     }
+
 
     public void displayMovieInfo(MovieItem movie) {
         tv_descr.setText(movie.getOverview());
