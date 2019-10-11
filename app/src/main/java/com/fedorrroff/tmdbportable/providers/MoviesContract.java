@@ -8,7 +8,7 @@ import com.fedorrroff.database.DBHelper;
 public class MoviesContract {
 
     static final String TABLE_NAME = DBHelper.TABLE_MOVIES_POPULAR;
-    static final String CONTENT_AUTHORITY = "com.fedorrroff.tmdbportable.providers";
+    static final String CONTENT_AUTHORITY = "com.fedorrroff.tmdbportable.MoviesProvider";
     static final Uri CONTENT_AUTHORITY_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd." + CONTENT_AUTHORITY + "." + TABLE_NAME;
