@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="com.fedorrroff.tmdbportable.MoviesProvider"
+            android:name=".providers.MoviesProvider"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

@@ -12,8 +12,7 @@ import androidx.annotation.Nullable;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.tmdbportable.core.BaseFragment;
 import com.fedorrroff.tmdbportable.di.FragmentPresenterComponent;
-import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
-import com.fedorrroff.tmdbportable.utils.NetworkUtil;
+import com.fedorrroff.utils.utils.NetworkUtil;
 
 import javax.inject.Inject;
 

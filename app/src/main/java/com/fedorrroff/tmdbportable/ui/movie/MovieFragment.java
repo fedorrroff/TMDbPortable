@@ -14,6 +14,7 @@ import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -36,6 +37,7 @@ public class MovieFragment extends BaseFragment {
     private TextView tv_title;
     private TextView tv_rating;
     private ImageView iv_poster;
+    private ImageView iv_background;
     private RequestOptions requestOptions = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.NONE);
 
@@ -78,6 +80,8 @@ public class MovieFragment extends BaseFragment {
         Bundle idBundle = getArguments();
         MovieItem movie = (MovieItem) idBundle.getSerializable(MOVIE);
 
+
+        iv_background = view.findViewById(R.id.iv_background_detail);
         tv_descr = view.findViewById(R.id.tv_description_detail);
         tv_title = view.findViewById(R.id.tv_title_detail);
         tv_rating = view.findViewById(R.id.tv_rating);
@@ -89,17 +93,14 @@ public class MovieFragment extends BaseFragment {
     }
 
     public void displayMovieTrailer(MovieTrailer movieTrailer) {
-        ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
-        youtube_btn.setOnClickListener((v) ->
-                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
-
-//        VideoView vv_trailer = getView().findViewById(R.id.vv_trailer);
-//        vv_trailer.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()));
-//        vv_trailer.setMediaController(new MediaController(getContext()));
-//
-//        vv_trailer.requestFocus();
-//        vv_trailer.start();
+        final View view = getView();
+        if (view != null){
+            ImageView youtube_btn = getView().findViewById(R.id.ib_youtube);
+            youtube_btn.setOnClickListener((v) ->
+                    getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKey()))));
+        }
     }
+
 
     public void displayMovieInfo(MovieItem movie) {
         tv_descr.setText(movie.getOverview());
@@ -108,5 +109,8 @@ public class MovieFragment extends BaseFragment {
 
         Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath())
                 .apply(requestOptions).into(iv_poster);
+
+        Glide.with(this).load("https://image.tmdb.org/t/p/w500/" + movie.getBackdropPath())
+                .apply(requestOptions).into(iv_background);
     }
 }

@@ -13,13 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.fedorrroff.tmdbportable.BuildConfig;
 import com.fedorrroff.tmdbportable.R;
 import com.fedorrroff.models.data.MovieItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class  MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.SingleMovieViewHolder> {
 
     private final List<MovieItem> items;
     private OnItemClickListener listener;
