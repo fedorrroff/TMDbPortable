@@ -14,6 +14,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class TopRatedMoviesFragmentPresenter implements BasePresenter<TopRatedMoviesFragment> {
 
     private TopRatedMoviesFragment mView;
@@ -33,39 +36,42 @@ public class TopRatedMoviesFragmentPresenter implements BasePresenter<TopRatedMo
 
     public void downloadTopRatedMovies() {
         Log.d("M_popularMoviesFragment", "onCreate");
-        new DownloadMovieTask(mView, mMovieRepository).execute();
+//        new DownloadMovieTask(mView, mMovieRepository).execute();
+        mMovieRepository.getTopRatedMovies().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(movies -> mView.displayMovies(movies));
     }
 
     public void movieSelected(final MovieItem movieItem) {
         mNavigator.showMovieScreen(movieItem);
     }
 
-    static class DownloadMovieTask extends AsyncTask<Void, Void, List<MovieItem>> {
-
-        private final WeakReference<TopRatedMoviesFragment> topRatedMoviesFragmentRef;
-        private final WeakReference<MovieRepository> repositoryRef;
-
-        public DownloadMovieTask (TopRatedMoviesFragment topRatedMoviesFragment, MovieRepository repository) {
-            topRatedMoviesFragmentRef = new WeakReference<>(topRatedMoviesFragment);
-            repositoryRef = new WeakReference<>(repository);
-        }
-
-        @Override
-        protected List<MovieItem> doInBackground(Void... voids) {
-            try {
-                return repositoryRef.get().getTopRatedMovies();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<MovieItem> movieItems) {
-            super.onPostExecute(movieItems);
-            if (topRatedMoviesFragmentRef.get() != null) {
-                topRatedMoviesFragmentRef.get().displayMovies(movieItems);
-            }
-        }
-    }
+//    static class DownloadMovieTask extends AsyncTask<Void, Void, List<MovieItem>> {
+//
+//        private final WeakReference<TopRatedMoviesFragment> topRatedMoviesFragmentRef;
+//        private final WeakReference<MovieRepository> repositoryRef;
+//
+//        public DownloadMovieTask (TopRatedMoviesFragment topRatedMoviesFragment, MovieRepository repository) {
+//            topRatedMoviesFragmentRef = new WeakReference<>(topRatedMoviesFragment);
+//            repositoryRef = new WeakReference<>(repository);
+//        }
+//
+//        @Override
+//        protected List<MovieItem> doInBackground(Void... voids) {
+//            try {
+//                return repositoryRef.get().getTopRatedMovies();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<MovieItem> movieItems) {
+//            super.onPostExecute(movieItems);
+//            if (topRatedMoviesFragmentRef.get() != null) {
+//                topRatedMoviesFragmentRef.get().displayMovies(movieItems);
+//            }
+//        }
+//    }
 }

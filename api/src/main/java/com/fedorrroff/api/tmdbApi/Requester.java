@@ -4,6 +4,7 @@ import com.fedorrroff.models.data.MovieDetail;
 import com.fedorrroff.models.data.PopularMoviesPage;
 import com.fedorrroff.models.data.TopRatedMoviePage;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 
 public class Requester {
@@ -14,11 +15,11 @@ public class Requester {
         this.apiService = apiService;
     }
 
-    public Call<PopularMoviesPage> getPopularMoviePage() {
+    public Observable<PopularMoviesPage> getPopularMoviePage() {
         return apiService.getPopularMoviePage();
     }
 
-    public Call<TopRatedMoviePage> getTopRatedMoviePage() {
+    public Observable<TopRatedMoviePage> getTopRatedMoviePage() {
         return apiService.getTopRatedMoviePage();
     }
 

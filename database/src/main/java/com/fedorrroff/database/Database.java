@@ -13,4 +13,6 @@ public interface Database {
     public List<MovieItem> getTopMovies();
 
     public void writeTopMovies(List<MovieItem> movies);
+
+    public void closeDB();
 }

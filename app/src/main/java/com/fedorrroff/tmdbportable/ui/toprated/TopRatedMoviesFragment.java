@@ -79,7 +79,7 @@ public class TopRatedMoviesFragment extends BaseFragment {
 
     public void displayMovies(List<MovieItem> movies) {
         if (recyclerView != null) {
-            recyclerView.post(() -> movieAdapter.addAllItems(movies));
+            movieAdapter.addAllItems(movies);
         }
     }
 }

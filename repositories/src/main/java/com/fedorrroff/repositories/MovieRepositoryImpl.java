@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import retrofit2.Call;
 
 public class MovieRepositoryImpl implements MovieRepository {
@@ -32,19 +34,23 @@ public class MovieRepositoryImpl implements MovieRepository {
     }
 
     @Override
-    public List<MovieItem> getMovies() throws IOException {
-        final List<MovieItem> movies;
+    public Observable<List<MovieItem>> getMovies() {
+        final Observable<List<MovieItem>> movies;
 
-        if (NetworkUtil.isConnectionAvailable(mActivity)) {
-            Call<PopularMoviesPage> moviePage = movieResource.getPopularMoviePage();
+//        if (NetworkUtil.isConnectionAvailable(mActivity)) {
+            Observable<PopularMoviesPage> moviePage = movieResource.getPopularMoviePage();
 
             movies = extractMovieFromPage(moviePage);
 
-            Thread writePopularToDBThread = new Thread(() -> database.writePopularMovies((movies)));
-            writePopularToDBThread.start();
-        } else {
-            movies = getPopularMoviesFromDB();
-        }
+//            Thread writePopularToDBThread = new Thread(() -> {
+//                database.writePopularMovies((movies));
+//                database.closeDB();
+//            });
+//            writePopularToDBThread.start();
+
+//        } else {
+//            movies = getPopularMoviesFromDB();
+//        }
 
         return movies;
     }
@@ -58,25 +64,27 @@ public class MovieRepositoryImpl implements MovieRepository {
     }
 
     @Override
-    public List<MovieItem> getTopRatedMovies() throws IOException {
-        final List<MovieItem> movies;
+    public Observable<List<MovieItem>> getTopRatedMovies() {
+        final Observable<List<MovieItem>> movies;
 
-        if (NetworkUtil.isConnectionAvailable(mActivity)) {
-            Call<TopRatedMoviePage> moviePage = movieResource.getTopRatedMoviePage();
+//        if (NetworkUtil.isConnectionAvailable(mActivity)) {
+            Observable<TopRatedMoviePage> moviePage = movieResource.getTopRatedMoviePage();
             movies = extractTopRatedMovieFromPage(moviePage);
 
-            Thread writeTopToDBThread = new Thread(() -> database.writeTopMovies((movies)));
-            writeTopToDBThread.start();
-        } else {
-            movies = getTopMoviesFromDB();
-        }
+//            Thread writeTopToDBThread = new Thread(() -> {
+//                database.writeTopMovies(movies);
+//                database.closeDB();
+//            });
+//            writeTopToDBThread.start();
+//        } else {
+//            movies = getTopMoviesFromDB();
+//        }
 
         return movies;
     }
 
-    private static List<MovieItem> extractMovieFromPage(Call<PopularMoviesPage> moviePage) throws IOException {
-        PopularMoviesPage page = moviePage.execute().body();
-        return page.getMovieItems();
+    private static Observable<List<MovieItem>> extractMovieFromPage(Observable<PopularMoviesPage> moviePage) {
+        return moviePage.map(PopularMoviesPage::getMovieItems);
     }
 
     private static List<MovieTrailer> extractTrailersFromMovie(Call<MovieDetail> movieDetail) throws IOException {
@@ -84,9 +92,8 @@ public class MovieRepositoryImpl implements MovieRepository {
         return singleMovieDetail.getResults();
     }
 
-    private static List<MovieItem> extractTopRatedMovieFromPage(Call<TopRatedMoviePage> topRatedMoviePage) throws IOException {
-        TopRatedMoviePage moviePage = topRatedMoviePage.execute().body();
-        return moviePage.getResults();
+    private static Observable<List<MovieItem>> extractTopRatedMovieFromPage(Observable<TopRatedMoviePage> topRatedMoviePage) {
+        return topRatedMoviePage.map(TopRatedMoviePage::getResults);
     }
 
     private List<MovieItem> getPopularMoviesFromDB() {
