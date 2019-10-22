@@ -18,6 +18,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 public class MovieRepositoryImpl implements MovieRepository {
@@ -35,24 +36,10 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public Observable<List<MovieItem>> getMovies() {
-        final Observable<List<MovieItem>> movies;
-
-//        if (NetworkUtil.isConnectionAvailable(mActivity)) {
-            Observable<PopularMoviesPage> moviePage = movieResource.getPopularMoviePage();
-
-            movies = extractMovieFromPage(moviePage);
-
-//            Thread writePopularToDBThread = new Thread(() -> {
-//                database.writePopularMovies((movies));
-//                database.closeDB();
-//            });
-//            writePopularToDBThread.start();
-
-//        } else {
-//            movies = getPopularMoviesFromDB();
-//        }
-
-        return movies;
+        return movieResource.getPopularMoviePage()
+                .map(PopularMoviesPage::getMovieItems)
+                .subscribeOn(Schedulers.newThread())
+                .doOnNext(database::writePopularMovies);
     }
 
     @Override
@@ -65,35 +52,15 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public Observable<List<MovieItem>> getTopRatedMovies() {
-        final Observable<List<MovieItem>> movies;
-
-//        if (NetworkUtil.isConnectionAvailable(mActivity)) {
-            Observable<TopRatedMoviePage> moviePage = movieResource.getTopRatedMoviePage();
-            movies = extractTopRatedMovieFromPage(moviePage);
-
-//            Thread writeTopToDBThread = new Thread(() -> {
-//                database.writeTopMovies(movies);
-//                database.closeDB();
-//            });
-//            writeTopToDBThread.start();
-//        } else {
-//            movies = getTopMoviesFromDB();
-//        }
-
-        return movies;
-    }
-
-    private static Observable<List<MovieItem>> extractMovieFromPage(Observable<PopularMoviesPage> moviePage) {
-        return moviePage.map(PopularMoviesPage::getMovieItems);
+        return movieResource.getTopRatedMoviePage()
+                .map(TopRatedMoviePage::getResults)
+                .subscribeOn(Schedulers.newThread())
+                .doOnNext(database::writeTopMovies);
     }
 
     private static List<MovieTrailer> extractTrailersFromMovie(Call<MovieDetail> movieDetail) throws IOException {
         MovieDetail singleMovieDetail = movieDetail.execute().body();
         return singleMovieDetail.getResults();
-    }
-
-    private static Observable<List<MovieItem>> extractTopRatedMovieFromPage(Observable<TopRatedMoviePage> topRatedMoviePage) {
-        return topRatedMoviePage.map(TopRatedMoviePage::getResults);
     }
 
     private List<MovieItem> getPopularMoviesFromDB() {

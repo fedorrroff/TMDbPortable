@@ -4,6 +4,8 @@ import com.fedorrroff.models.data.MovieItem;
 
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public interface Database {
 
     public List<MovieItem> getPopularMovies();

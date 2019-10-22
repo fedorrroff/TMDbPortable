@@ -152,7 +152,7 @@ public class DatabaseImpl implements Database {
             contentValues.put(KEY_DATE , movie.getReleaseDate());
             database.insert(DBHelper.TABLE_MOVIES_TOP, null, contentValues);
         }
-//        dbHelper.close();
+        dbHelper.close();
     }
 
     @Override

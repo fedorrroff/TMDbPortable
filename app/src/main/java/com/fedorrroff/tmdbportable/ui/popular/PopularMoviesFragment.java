@@ -76,6 +76,7 @@ public class PopularMoviesFragment extends BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
 
         movieAdapter.setOnItemClickListener((movieItem) -> popularMoviesFragmentPresenter.movieSelected(movieItem));
+
         if(savedInstanceState != null) {
             popularMoviesFragmentPresenter.downloadMovies();
         }
