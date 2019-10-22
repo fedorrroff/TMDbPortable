@@ -32,8 +32,6 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
     public void downloadMovies() {
         Log.d("M_popularMoviesFragment", "onCreate");
 
-//        mView.displayMovies(ThreadUtil.runOnBackground(mMovieRepository::getMovies));
-
         mMovieRepository.getMovies().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movies -> mView.displayMovies(movies));

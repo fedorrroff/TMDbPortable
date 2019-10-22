@@ -46,32 +46,4 @@ public class TopRatedMoviesFragmentPresenter implements BasePresenter<TopRatedMo
         mNavigator.showMovieScreen(movieItem);
     }
 
-//    static class DownloadMovieTask extends AsyncTask<Void, Void, List<MovieItem>> {
-//
-//        private final WeakReference<TopRatedMoviesFragment> topRatedMoviesFragmentRef;
-//        private final WeakReference<MovieRepository> repositoryRef;
-//
-//        public DownloadMovieTask (TopRatedMoviesFragment topRatedMoviesFragment, MovieRepository repository) {
-//            topRatedMoviesFragmentRef = new WeakReference<>(topRatedMoviesFragment);
-//            repositoryRef = new WeakReference<>(repository);
-//        }
-//
-//        @Override
-//        protected List<MovieItem> doInBackground(Void... voids) {
-//            try {
-//                return repositoryRef.get().getTopRatedMovies();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<MovieItem> movieItems) {
-//            super.onPostExecute(movieItems);
-//            if (topRatedMoviesFragmentRef.get() != null) {
-//                topRatedMoviesFragmentRef.get().displayMovies(movieItems);
-//            }
-//        }
-//    }
 }
