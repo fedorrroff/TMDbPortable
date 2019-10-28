@@ -18,8 +18,8 @@ public class ThreadUtil {
 
         T result = null;
             try {
-                result = future.get(1488, TimeUnit.MILLISECONDS);
-            } catch (ExecutionException | InterruptedException | TimeoutException e) {
+                result = future.get();
+            } catch (ExecutionException | InterruptedException e ) {
                 e.printStackTrace();
             }
 

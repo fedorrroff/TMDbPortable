@@ -77,14 +77,14 @@ public class PopularMoviesFragment extends BaseFragment {
 
         movieAdapter.setOnItemClickListener((movieItem) -> popularMoviesFragmentPresenter.movieSelected(movieItem));
 
-        if (savedInstanceState != null) {
+        if(savedInstanceState != null) {
             popularMoviesFragmentPresenter.downloadMovies();
         }
     }
 
     public void displayMovies(List<MovieItem> movies) {
         if (recyclerView != null) {
-            recyclerView.post(() -> movieAdapter.addAllItems(movies));
+            movieAdapter.addAllItems(movies);
         }
     }
 }

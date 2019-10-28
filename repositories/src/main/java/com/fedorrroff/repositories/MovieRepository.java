@@ -6,11 +6,13 @@ import com.fedorrroff.models.data.MovieTrailer;
 import java.io.IOException;
 import java.util.List;
 
+import io.reactivex.Observable;
+
 public interface MovieRepository {
 
-    List<MovieItem> getMovies() throws IOException;
+    Observable<List<MovieItem>> getMovies();
 
-    List<MovieItem> getTopRatedMovies() throws IOException;
+    Observable<List<MovieItem>> getTopRatedMovies();
 
     MovieTrailer getMovieTrailer(Integer id) throws IOException;
 }

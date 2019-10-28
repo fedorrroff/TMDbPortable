@@ -1,21 +1,16 @@
 package com.fedorrroff.tmdbportable.ui.popular;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.fedorrroff.tmdbportable.core.BasePresenter;
 import com.fedorrroff.models.data.MovieItem;
 import com.fedorrroff.repositories.MovieRepository;
-import com.fedorrroff.tmdbportable.providers.MoviesProvider;
 import com.fedorrroff.tmdbportable.ui.navigation.Navigator;
-import com.fedorrroff.utils.utils.ThreadUtil;
-
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMoviesFragment> {
 
@@ -37,11 +32,12 @@ public class PopularMoviesFragmentPresenter implements BasePresenter<PopularMovi
     public void downloadMovies() {
         Log.d("M_popularMoviesFragment", "onCreate");
 
-        mView.displayMovies(ThreadUtil.runOnBackground(mMovieRepository::getMovies));
+        mMovieRepository.getMovies().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(movies -> mView.displayMovies(movies));
     }
 
     public void movieSelected(final MovieItem movieItem) {
         mNavigator.showMovieScreen(movieItem);
     }
-
 }

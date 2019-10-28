@@ -3,9 +3,10 @@ package com.fedorrroff.repositories;
 import com.fedorrroff.models.data.MovieItem;
 import com.fedorrroff.models.data.MovieTrailer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
 
 public class FakeRepo implements MovieRepository {
 
@@ -22,23 +23,21 @@ public class FakeRepo implements MovieRepository {
     }
 
     @Override
-    public List<MovieItem> getMovies() throws IOException {
+    public Observable<List<MovieItem>> getMovies() {
         List<MovieItem> fakeSet = new ArrayList<>();
         fakeSet.add(createFake());
-
-        return fakeSet;
+        return Observable.just(fakeSet);
     }
 
     @Override
-    public List<MovieItem> getTopRatedMovies() throws IOException {
+    public Observable<List<MovieItem>> getTopRatedMovies() {
         List<MovieItem> fakeSet = new ArrayList<>();
         fakeSet.add(createFake());
-
-        return fakeSet;
+        return Observable.just(fakeSet);
     }
 
     @Override
-    public MovieTrailer getMovieTrailer(Integer id) throws IOException {
+    public MovieTrailer getMovieTrailer(Integer id) {
         return null;
     }
 }
